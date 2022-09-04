@@ -31,7 +31,8 @@ new Prefetcher({
       },
     ]),
   ],
-}).route()
+})
+  .route()
   .cache(/^https:\/\/(.*?)\.com\/.*/)
   .cache(/^https:\/\/(.*?)\.net\/.*/)
 

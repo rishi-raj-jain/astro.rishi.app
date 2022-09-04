@@ -21,14 +21,7 @@ const {
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
-    {Astro.url.pathname.includes('/blog/') && <link rel="preload" href="/css/light.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />}
-    {
-      Astro.url.pathname.includes('/blog/') && (
-        <noscript>
-          <link rel="stylesheet" href="/css/light.css" />
-        </noscript>
-      )
-    }
+    {Astro.url.pathname.includes('/blog/') && <link rel="stylesheet" href="/css/light.css" media="print" onload="this.onload=null;this.rel='stylesheet'" />}
     <style is:global>
       .h2_underline:hover {
         text-decoration: underline;
@@ -103,7 +96,6 @@ const {
       }
     </script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
+    <Layer0 client:idle />
   </body>
 </html>
-
-<Layer0 client:idle />
