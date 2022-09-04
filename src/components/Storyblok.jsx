@@ -4,7 +4,7 @@ const Storyblok = ({ data }) => {
   return (
     <div className="flex w-full flex-col items-center text-[14px]">
       <div className="mt-10 flex w-[90vw] max-w-[540px] flex-col">
-        <h2 className="text-3xl font-bold text-zinc-700 dark:text-gray-300">Rishi Raj Jain</h2>
+        <h2 className="text-3xl font-bold text-zinc-700 dark:text-gray-300">Storyblok x Rishi Raj Jain</h2>
         <h2 id="About" className="mt-10 text-zinc-700 dark:text-gray-300">
           About
         </h2>

@@ -3,7 +3,6 @@ import SocialLinks from './SocialLinks'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 const Home = ({ data }) => {
-  const { homeTagline } = data
   return (
     <div className="md:justify-auto flex min-h-[90vh] flex-col justify-center md:flex-row md:items-center">
       <div className="flex w-full flex-col items-center justify-center md:w-1/2 md:items-start">
@@ -20,7 +19,7 @@ const Home = ({ data }) => {
         <div className="mt-10 h-[1px] w-full bg-gray-200 dark:bg-gray-700"></div>
         <h2
           dangerouslySetInnerHTML={{
-            __html: new RichTextResolver().render(homeTagline),
+            __html: new RichTextResolver().render(data),
           }}
           className="text-md mt-10 text-center text-gray-500 dark:text-white sm:text-lg md:text-left"
         ></h2>

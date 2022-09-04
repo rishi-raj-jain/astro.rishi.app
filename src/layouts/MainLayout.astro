@@ -1,4 +1,5 @@
 ---
+import Layer0 from '../components/Layer0.astro'
 import Header from '../components/Header.astro'
 import BaseHead from '../components/BaseHead.astro'
 import { SITE_DESCRIPTION, SITE_TITLE } from '../config'
@@ -20,17 +21,91 @@ const {
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
-    {Astro.url.pathname.includes('/blog/') && <link rel="stylesheet" href="/css/light.css" />}
-    <!-- {Astro.url.pathname.includes('/blog/') && <link rel="stylesheet" href="/css/dark.css" />} -->
+    {Astro.url.pathname.includes('/blog/') && <link rel="preload" href="/css/light.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />}
+    {
+      Astro.url.pathname.includes('/blog/') && (
+        <noscript>
+          <link rel="stylesheet" href="/css/light.css" />
+        </noscript>
+      )
+    }
+    <style>
+      .h2_underline:hover {
+        text-decoration: underline;
+      }
+      .h2_underline:hover::before {
+        width: '20px';
+        content: '#';
+        opacity: 0.5;
+        color: black;
+        display: inline-block;
+      }
+    </style>
   </head>
 
-  <body>
+  <body class="bg-white dark:bg-black min-h-screen font-display">
     <Header />
-    <main class="flex flex-col items-center bg-white font-display text-black transition-colors duration-200 dark:bg-black dark:text-gray-200">
-      <div class="flex w-full max-w-[90vw] flex-col py-10 sm:px-10 lg:max-w-[75vw]">
+    <main class="flex flex-col items-center text-black dark:text-gray-200">
+      <div class="flex w-full max-w-[90vw] lg:max-w-[75vw] flex-col py-10 sm:px-10">
         {valid && <slot />}
       </div>
     </main>
     <link as="font" type="font/woff2" crossorigin="anonymous" href="/fonts/inter-var.woff2" />
+    <script is:inline defer>
+      let t
+
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = '/css/dark.css'
+
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme')
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark'
+        }
+        return 'light'
+      })()
+
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark')
+        if (t) t.remove()
+      } else {
+        document.documentElement.classList.add('dark')
+        if (t) {
+          document.body.appendChild(t)
+        } else {
+          t = document.body.appendChild(link)
+        }
+      }
+      window.localStorage.setItem('theme', theme)
+
+      const toggleTheme = () => {
+        let existingTheme
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          existingTheme = localStorage.getItem('theme')
+        }
+        if (existingTheme) {
+          if (existingTheme === 'dark') {
+            document.documentElement.classList.remove('dark')
+            if (t) t.remove()
+            window.localStorage.setItem('theme', 'light')
+          } else {
+            document.documentElement.classList.add('dark')
+            if (t) {
+              document.body.appendChild(t)
+            } else {
+              t = document.body.appendChild(link)
+            }
+            window.localStorage.setItem('theme', 'dark')
+          }
+        }
+      }
+    </script>
+    <script is:inline defer src="/__layer0__/client/install.js"></script>
+    <script is:inline defer src="/__layer0__/devtools/install.js"></script>
+    <Layer0 />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
   </body>
 </html>

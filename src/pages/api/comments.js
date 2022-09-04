@@ -33,7 +33,7 @@ export async function get({ request }) {
 export async function post({ request }) {
   try {
     const firebase = admin.firestore()
-    const { name, slug, content, email } = request.body
+    const { name, slug, content, email } = await request.json()
     let temp = { name, slug, content }
     temp['time'] = admin.firestore.Timestamp.fromDate(new Date())
     if (validateEmail(email)) temp['email'] = email

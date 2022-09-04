@@ -16,9 +16,9 @@ router.match('/__xdn__/:path*', ({ redirect }) => {
 })
 
 // Service Worker
-// router.match('/service-worker.js', ({ serveStatic }) => {
-//   serveStatic('dist/service-worker.js')
-// })
+router.match('/service-worker.js', ({ serveStatic }) => {
+  serveStatic('dist/service-worker.js')
+})
 
 // Only compiled with 0 build / 0 deploy
 if (isProductionBuild()) {

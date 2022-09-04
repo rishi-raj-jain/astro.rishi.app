@@ -37,3 +37,10 @@ try {
     </div>
   </div>
 </MainLayout>
+
+<script is:inline defer>
+  document.querySelectorAll('h2').forEach((element) => {
+    element.onclick = () => (window.location.hash = `#${element.id}`)
+    element.classList.add('h2_underline')
+  })
+</script>

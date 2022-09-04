@@ -1,20 +1,14 @@
 ---
 export interface Props extends astroHTML.JSX.AnchorHTMLAttributes {}
 
-const { href, class: className, ...props } = Astro.props
+const { href } = Astro.props
 const isActive = href === Astro.url.pathname
+
+import Prefetch from './Prefetch'
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
-  <slot />
-</a>
-<style>
-  a {
-    display: inline-block;
-    text-decoration: none;
-  }
-  a.active {
-    font-weight: bolder;
-    text-decoration: underline;
-  }
-</style>
+<Prefetch client:idle url={href}>
+  <a href={href} class:list={['dark:text-white', { 'underline dark:underline-white': isActive }]}>
+    <slot />
+  </a>
+</Prefetch>
