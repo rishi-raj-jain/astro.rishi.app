@@ -21,7 +21,7 @@ const {
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
-    {Astro.url.pathname.includes('/blog/') && <link rel="stylesheet" href="/css/light.css" media="print" onload="this.onload=null;this.rel='stylesheet'" />}
+    {Astro.url.pathname.includes('/blog/') && <link rel="stylesheet" href="/css/light.css" media="print" onload="this.onload=null;this.media='all'" />}
     <style is:global>
       .h2_underline:hover {
         text-decoration: underline;
