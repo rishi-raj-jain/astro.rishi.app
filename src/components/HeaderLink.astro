@@ -7,8 +7,8 @@ const isActive = href === Astro.url.pathname
 import Prefetch from './Prefetch'
 ---
 
-<Prefetch client:idle url={href}>
-  <a href={href} class:list={['dark:text-white', { 'underline dark:underline-white': isActive }]}>
-    <slot />
-  </a>
-</Prefetch>
+<a href={href} class:list={['dark:text-white', { 'underline dark:underline-white': isActive }]}>
+  <slot />
+</a>
+
+<Prefetch client:idle url={href} />

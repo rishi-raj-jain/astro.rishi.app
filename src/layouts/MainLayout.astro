@@ -1,5 +1,4 @@
 ---
-import Layer0 from '../components/Layer0.astro'
 import Header from '../components/Header.astro'
 import BaseHead from '../components/BaseHead.astro'
 import { SITE_DESCRIPTION, SITE_TITLE } from '../config'
@@ -29,16 +28,15 @@ const {
         </noscript>
       )
     }
-    <style>
+    <style is:global>
       .h2_underline:hover {
         text-decoration: underline;
       }
       .h2_underline:hover::before {
-        width: '20px';
         content: '#';
         opacity: 0.5;
         color: black;
-        display: inline-block;
+        margin-right: 10px;
       }
     </style>
   </head>
@@ -105,7 +103,6 @@ const {
     </script>
     <script is:inline defer src="/__layer0__/client/install.js"></script>
     <script is:inline defer src="/__layer0__/devtools/install.js"></script>
-    <Layer0 />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
   </body>
 </html>
