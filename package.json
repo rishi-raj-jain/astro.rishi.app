@@ -1,0 +1,36 @@
+{
+  "name": "astro.rishi.app",
+  "scripts": {
+    "astro": "astro",
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "format": "prettier --write '**/*' --ignore-unknown"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^0.11.1",
+    "@astrojs/node": "^1.0.1",
+    "astro": "^1.1.5",
+    "firebase-admin": "^11.0.1"
+  },
+  "devDependencies": {
+    "@astrojs/react": "^1.1.1",
+    "@astrojs/tailwind": "^1.0.0",
+    "@layer0/cli": "^4.18.8",
+    "@layer0/core": "^4.18.8",
+    "@layer0/devtools": "^4.18.8",
+    "@layer0/prefetch": "^4.18.8",
+    "@tailwindcss/line-clamp": "^0.4.2",
+    "@tailwindcss/typography": "^0.5.7",
+    "@vercel/nft": "^0.22.1",
+    "dotenv": "^16.0.2",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remark": "^12.0.1",
+    "remark-html": "^13.0.1",
+    "remark-prism": "^1.1.14",
+    "storyblok-js-client": "^4.1.5"
+  }
+}

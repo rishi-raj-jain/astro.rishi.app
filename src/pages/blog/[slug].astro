@@ -1,0 +1,39 @@
+---
+import Author from '../../components/Author'
+import markdownToHtml from '../../operations'
+import Comments from '../../components/Comments'
+import { getOtherBlogs, getPost } from '../../api'
+import DateString from '../../components/DateString'
+import MainLayout from '../../layouts/MainLayout.astro'
+
+let data
+let morePosts = []
+
+try {
+  const { slug } = Astro.params
+  data = await getPost(slug)
+  data['post']['content']['long_text'] = await markdownToHtml(data['post']['content']['long_text'])
+
+  const appendFirst = (item) => (item.length ? morePosts.push(item[0]) : null)
+
+  appendFirst(await getOtherBlogs(data.post.first_published_at, data.post.full_slug, 1, true))
+  appendFirst(await getOtherBlogs(data.post.first_published_at, data.post.full_slug, 1, false))
+} catch (e) {
+  console.log(e)
+}
+---
+
+<MainLayout valid={data} content={{ title: `${data.post.content.title} - ${data.post.content.author.name}` }}>
+  <div class="flex w-full flex-col items-center">
+    <div class="w-full md:max-w-2xl">
+      <div class="flex w-full flex-col items-center">
+        <DateString date={new Date(data.post.first_published_at)} />
+        <h1 class="mt-3 mb-7 text-center text-2xl font-bold sm:text-4xl">{data.post.content.title}</h1>
+        <Author post={data.post} />
+      </div>
+      <div class="mt-7 h-[1px] w-full bg-gray-200"></div>
+      <article class="prose mt-10 max-w-none text-sm dark:prose-light" set:html={data.post.content.long_text}></article>
+      <Comments client:visible data={data} morePosts={morePosts} />
+    </div>
+  </div>
+</MainLayout>

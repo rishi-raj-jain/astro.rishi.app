@@ -1,0 +1,9 @@
+---
+import { storyblok } from '../config'
+import Storyblok from '../components/Storyblok'
+import MainLayout from '../layouts/MainLayout.astro'
+---
+
+<MainLayout valid={storyblok} content={{ title: 'Storyblok - Rishi Raj Jain' }}>
+  <Storyblok data={storyblok} />
+</MainLayout>

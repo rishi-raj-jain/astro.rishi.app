@@ -1,0 +1,36 @@
+---
+import About from '../components/About'
+import MainLayout from '../layouts/MainLayout.astro'
+import { getTagline, getTimelineItems } from '../api'
+
+let data = undefined
+
+try {
+  let arePosts = true,
+    page = 1,
+    Timeline = {}
+  while (arePosts) {
+    let tempTimeline = (await getTimelineItems(5, page)) || []
+    if (tempTimeline.length > 0) {
+      tempTimeline.forEach((a) => {
+        if (Timeline.hasOwnProperty(a.content.Year)) {
+          Timeline[a.content.Year].push(a)
+        } else {
+          Timeline[a.content.Year] = [a]
+        }
+      })
+      page += 1
+    } else {
+      arePosts = false
+    }
+  }
+  const aboutTagline = await getTagline('about')
+  data = { aboutTagline, Timeline }
+} catch (e) {
+  console.log(e)
+}
+---
+
+<MainLayout valid={data} content={{ title: 'About Me - Rishi Raj Jain' }}>
+  <About data={data} />
+</MainLayout>

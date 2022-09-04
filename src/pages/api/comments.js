@@ -1,0 +1,51 @@
+import admin from '../../firebase'
+import { validateEmail } from '../../operations'
+
+export async function get({ request }) {
+  try {
+    const slug = new URL(request.url).searchParams.get('slug')
+    if (!slug)
+      return new Response(null, {
+        status: 534,
+        statusText: 'Not found',
+      })
+    const firebase = admin.firestore()
+    const commentsRef = firebase.collection('comments')
+    const comments = await commentsRef.get()
+    const posts = comments.docs
+      .map((doc) => doc.data())
+      .filter((doc) => doc.slug === slug)
+      .map((doc) => {
+        const { name, content, time, slug } = doc
+        return { name, content, time: time.seconds, slug }
+      })
+    return new Response(JSON.stringify(posts), {
+      status: 200,
+    })
+  } catch (e) {
+    return new Response(null, {
+      status: 534,
+      statusText: 'Not found',
+    })
+  }
+}
+
+export async function post({ request }) {
+  try {
+    const firebase = admin.firestore()
+    const { name, slug, content, email } = request.body
+    let temp = { name, slug, content }
+    temp['time'] = admin.firestore.Timestamp.fromDate(new Date())
+    if (validateEmail(email)) temp['email'] = email
+    const commentsRef = firebase.collection('comments')
+    await commentsRef.add(temp)
+    return new Response(null, {
+      status: 200,
+    })
+  } catch (e) {
+    return new Response(null, {
+      status: 534,
+      statusText: 'Not found',
+    })
+  }
+}

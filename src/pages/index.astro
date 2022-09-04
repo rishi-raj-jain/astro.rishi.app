@@ -1,0 +1,17 @@
+---
+import { getTagline } from '../api'
+import Home from '../components/Home'
+import MainLayout from '../layouts/MainLayout.astro'
+
+let data = undefined
+
+try {
+  data = await getTagline('home')
+} catch (e) {
+  console.log(e)
+}
+---
+
+<MainLayout valid={data} content={{ title: 'Home - Rishi Raj Jain' }}>
+  <Home data={data} />
+</MainLayout>
