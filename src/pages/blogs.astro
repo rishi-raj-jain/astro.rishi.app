@@ -19,6 +19,9 @@ try {
 import Prefetch from '../components/Prefetch'
 ---
 
+<Prefetch client:idle url={`/css/dark.css`} />
+<Prefetch client:idle url={`/css/light.css`} />
+
 <MainLayout valid={data} content={{ title: 'Blogs - Rishi Raj Jain' }}>
   <div class="flex flex-col">
     <h1 class="text-2xl font-bold sm:text-5xl">Blogs</h1>
