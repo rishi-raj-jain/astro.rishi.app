@@ -7,5 +7,10 @@ export const ONE_DAY_CACHE_HANDLER = ({ cache }) => {
       // https://docs.layer0.co/docs/api/core/interfaces/_router_cacheoptions_.edgecacheoptions.html#forceprivatecaching
       forcePrivateCaching: true,
     },
+    browser: {
+      // cache in the browser using the service worker for one hour
+      // extends edge in the browser
+      serviceWorkerSeconds: 60 * 60,
+    },
   })
 }

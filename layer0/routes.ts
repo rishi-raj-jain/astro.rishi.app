@@ -23,7 +23,9 @@ router.match('/service-worker.js', ({ serveStatic }) => {
 // Only compiled with 0 build / 0 deploy
 if (isProductionBuild()) {
   // Create serve static routes for the all the assets under dist/client folder
-  router.static('dist/client')
+  router.static('dist/client', {
+    handler: () => ONE_DAY_CACHE_HANDLER,
+  })
 
   // Cache but not in 0 dev mode
   router.match('/', ONE_DAY_CACHE_HANDLER)
