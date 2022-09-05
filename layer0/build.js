@@ -50,7 +50,7 @@ module.exports = async function build(options) {
 }
 
 async function getNodeModules() {
-  const files = ['./server.mjs']
+  const files = ['./server.mjs', './include_modules.js']
   const { fileList } = await nodeFileTrace(files)
   let packages = {}
   fileList.forEach((i) => {

@@ -1,6 +1,7 @@
 import * as fs from 'fs'
 import * as cheerio from 'cheerio'
 import { Router } from '@layer0/core/router'
+import esImport from '@layer0/core/utils/esImport'
 import { isProductionBuild } from '@layer0/core/environment'
 import { ONE_DAY_CACHE_HANDLER, ONE_DAY_CACHE_VALUES } from './cache'
 
@@ -45,16 +46,36 @@ if (isProductionBuild()) {
 
 router.fallback(({ renderWithApp }) => {
   renderWithApp({
-    transformResponse: (res) => {
-      // If it's an HTML, then add the prefetch tags from the JSON
-      if (res.getHeader('content-type') === 'text/html') {
-        const $ = cheerio.load(res.body)
-        // Read the list of URLs to be prefetched
-        const prefetchList = JSON.parse(fs.readFileSync('./toPrefetchList.json', 'utf8'))
-        // Create prefetch urls that will be prefetched by SW
-        prefetchList.prefetch.forEach((i) => $('body').append(`<prefetch-url url="/${i}" />`))
-        // Replace the a.storyblok.com path with the proxied path
-        res.body = $.html().replace(/https:\/\/a\.storyblok\.com\//g, '/l0-storyblok/')
+    transformResponse: async (res) => {
+      let resOriginal = res.body
+      try {
+        // If it's an HTML, then add the prefetch tags from the JSON
+        if (res.getHeader('content-type') === 'text/html') {
+          const $ = cheerio.load(res.body)
+          // Read the list of URLs to be prefetched
+          const prefetchList = JSON.parse(fs.readFileSync('./toPrefetchList.json', 'utf8'))
+          // Create prefetch urls that will be prefetched by SW
+          prefetchList.prefetch.forEach((i) => $('body').append(`<prefetch-url url="/${i}" />`))
+          // ES-Import html-minifier es module
+          const { minify } = await esImport('html-minifier')
+          // Replace the a.storyblok.com path with the proxied path
+          res.body = minify($.html().replace(/https:\/\/a\.storyblok\.com\//g, '/l0-storyblok/'), {
+            decodeEntities: true,
+            minifyCSS: true,
+            minifyJS: true,
+            processConditionalComments: true,
+            removeEmptyAttributes: true,
+            removeRedundantAttributes: true,
+            trimCustomFragments: true,
+            useShortDoctype: true,
+            // collapseWhitespace: true, // Can't do this as it leads to client-side react errors
+            collapseInlineTagWhitespace: true,
+          })
+        }
+      } catch (e) {
+        // Preserve the initial response body in case of failure
+        res.body = resOriginal
+        console.log(e)
       }
     },
   })
