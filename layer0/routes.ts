@@ -70,7 +70,8 @@ router.fallback(({ renderWithApp }) => {
             useShortDoctype: true,
             // collapseWhitespace: true, // Can't do this as it leads to client-side react errors
             collapseInlineTagWhitespace: true,
-          }).replace(/>\s+</g, '><')
+          })
+          // .replace(/>\s+</g, '><') // Can't do this as this affects how code is rendered
         }
       } catch (e) {
         // Preserve the initial response body in case of failure
