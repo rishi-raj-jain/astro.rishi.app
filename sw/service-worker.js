@@ -29,6 +29,13 @@ new Prefetcher({
         as: 'style',
         callback: deepFetchAssets,
       },
+      {
+        selector: 'astro-island',
+        maxMatches: 20,
+        attribute: 'renderer-url',
+        as: 'script',
+        callback: deepFetchAssets
+      }
     ]),
   ],
 })
@@ -42,6 +49,10 @@ function deepFetchAssets({ $el, el, $ }) {
     prefetch(urlTemplate)
   }
   urlTemplate = $(el).attr('src')
+  if (urlTemplate) {
+    prefetch(urlTemplate)
+  }
+  urlTemplate = $(el).attr('renderer-url')
   if (urlTemplate) {
     prefetch(urlTemplate)
   }
