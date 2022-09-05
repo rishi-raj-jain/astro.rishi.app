@@ -56,4 +56,8 @@ function deepFetchAssets({ $el, el, $ }) {
   if (urlTemplate) {
     prefetch(urlTemplate)
   }
+  urlTemplate = $(el).attr('component-url')
+  if (urlTemplate) {
+    prefetch(urlTemplate)
+  }
 }
