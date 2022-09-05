@@ -30,6 +30,18 @@ module.exports = async function build(options) {
     Object.keys(dictNodeModules).forEach(async (i) => {
       await builder.addJSAsset(`${appDir}/${i}`)
     })
+
+    const globby = await import('globby')
+
+    // Write the to-prefetch list
+    const filesToBePrefetched = globby.globbySync('**/*', {
+      onlyFiles: true,
+      cwd: join(process.cwd(), 'dist', 'client'),
+    })
+
+    // Create toPrefetchList.json
+    builder.writeFileSync('./toPrefetchList.json', JSON.stringify({ prefetch: filesToBePrefetched }))
+
     await builder.build()
   } catch (e) {
     console.log(e)

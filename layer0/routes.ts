@@ -1,3 +1,5 @@
+import * as fs from 'fs'
+import * as cheerio from 'cheerio'
 import { Router } from '@layer0/core/router'
 import { ONE_DAY_CACHE_HANDLER } from './cache'
 import { isProductionBuild } from '@layer0/core/environment'
@@ -37,7 +39,17 @@ if (isProductionBuild()) {
 }
 
 router.fallback(({ renderWithApp }) => {
-  renderWithApp()
+  renderWithApp({
+    transformResponse: (res) => {
+      // If it's an HTML, then add the prefetch tags from the JSON
+      if (res.getHeader('content-type') === 'text/html') {
+        const $ = cheerio.load(res.body)
+        const prefetchList = JSON.parse(fs.readFileSync('./toPrefetchList.json', 'utf8'))
+        prefetchList.prefetch.forEach((i) => $('body').append(`<prefetch-url url="/${i}" />`))
+        res.body = $.html()
+      }
+    },
+  })
 })
 
 export default router

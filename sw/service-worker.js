@@ -35,6 +35,13 @@ new Prefetcher({
         attribute: 'renderer-url',
         as: 'script',
         callback: deepFetchAssets
+      },
+      {
+        selector: 'prefetch-url',
+        maxMatches: 20,
+        attribute: 'url',
+        as: 'script',
+        callback: deepFetchAssets
       }
     ]),
   ],
@@ -57,6 +64,10 @@ function deepFetchAssets({ $el, el, $ }) {
     prefetch(urlTemplate)
   }
   urlTemplate = $(el).attr('component-url')
+  if (urlTemplate) {
+    prefetch(urlTemplate)
+  }
+  urlTemplate = $(el).attr('url')
   if (urlTemplate) {
     prefetch(urlTemplate)
   }
