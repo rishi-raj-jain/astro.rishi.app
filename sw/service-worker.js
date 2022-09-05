@@ -30,19 +30,40 @@ new Prefetcher({
         callback: deepFetchAssets,
       },
       {
+        selector: 'img',
+        maxMatches: 20,
+        attribute: 'href',
+        as: 'style',
+        callback: deepFetchAssets,
+      },
+      {
+        selector: 'source',
+        maxMatches: 20,
+        attribute: 'href',
+        as: 'style',
+        callback: deepFetchAssets,
+      },
+      {
+        selector: 'video',
+        maxMatches: 20,
+        attribute: 'href',
+        as: 'style',
+        callback: deepFetchAssets,
+      },
+      {
         selector: 'astro-island',
         maxMatches: 20,
         attribute: 'renderer-url',
         as: 'script',
-        callback: deepFetchAssets
+        callback: deepFetchAssets,
       },
       {
         selector: 'prefetch-url',
         maxMatches: 20,
         attribute: 'url',
         as: 'script',
-        callback: deepFetchAssets
-      }
+        callback: deepFetchAssets,
+      },
     ]),
   ],
 })
@@ -51,24 +72,11 @@ new Prefetcher({
   .cache(/^https:\/\/(.*?)\.net\/.*/)
 
 function deepFetchAssets({ $el, el, $ }) {
-  let urlTemplate = $(el).attr('href')
-  if (urlTemplate) {
-    prefetch(urlTemplate)
-  }
-  urlTemplate = $(el).attr('src')
-  if (urlTemplate) {
-    prefetch(urlTemplate)
-  }
-  urlTemplate = $(el).attr('renderer-url')
-  if (urlTemplate) {
-    prefetch(urlTemplate)
-  }
-  urlTemplate = $(el).attr('component-url')
-  if (urlTemplate) {
-    prefetch(urlTemplate)
-  }
-  urlTemplate = $(el).attr('url')
-  if (urlTemplate) {
-    prefetch(urlTemplate)
-  }
+  let attributesToLookFor = ['href', 'src', 'url', 'renderer-url', 'component-url']
+  attributesToLookFor.forEach((i) => {
+    let urlTemplate = $(el).attr(i)
+    if (urlTemplate) {
+      prefetch(urlTemplate)
+    }
+  })
 }

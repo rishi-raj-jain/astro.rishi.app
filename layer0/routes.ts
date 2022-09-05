@@ -1,8 +1,8 @@
 import * as fs from 'fs'
 import * as cheerio from 'cheerio'
 import { Router } from '@layer0/core/router'
-import { ONE_DAY_CACHE_HANDLER } from './cache'
 import { isProductionBuild } from '@layer0/core/environment'
+import { ONE_DAY_CACHE_HANDLER, ONE_DAY_CACHE_VALUES } from './cache'
 
 const router = new Router()
 
@@ -20,6 +20,11 @@ router.match('/__xdn__/:path*', ({ redirect }) => {
 // Service Worker
 router.match('/service-worker.js', ({ serveStatic }) => {
   serveStatic('dist/service-worker.js')
+})
+
+router.match('/l0-storyblok/:path*', ({ cache, proxy }) => {
+  cache(ONE_DAY_CACHE_VALUES)
+  proxy('storyblok', { path: ':path*' })
 })
 
 // Only compiled with 0 build / 0 deploy
@@ -44,9 +49,12 @@ router.fallback(({ renderWithApp }) => {
       // If it's an HTML, then add the prefetch tags from the JSON
       if (res.getHeader('content-type') === 'text/html') {
         const $ = cheerio.load(res.body)
+        // Read the list of URLs to be prefetched
         const prefetchList = JSON.parse(fs.readFileSync('./toPrefetchList.json', 'utf8'))
+        // Create prefetch urls that will be prefetched by SW
         prefetchList.prefetch.forEach((i) => $('body').append(`<prefetch-url url="/${i}" />`))
-        res.body = $.html()
+        // Replace the a.storyblok.com path with the proxied path
+        res.body = $.html().replace(/https:\/\/a\.storyblok\.com\//g, '/l0-storyblok/')
       }
     },
   })
