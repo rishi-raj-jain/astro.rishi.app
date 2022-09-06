@@ -23,11 +23,6 @@ router.match('/service-worker.js', ({ serveStatic }) => {
   serveStatic('dist/service-worker.js')
 })
 
-// Service Worker Installation
-router.match('/install.js', ({ serveStatic }) => {
-  serveStatic('dist/install.js')
-})
-
 router.match('/l0-storyblok/:path*', ({ cache, proxy }) => {
   cache(ONE_DAY_CACHE_VALUES)
   proxy('storyblok', { path: ':path*' })

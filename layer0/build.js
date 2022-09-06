@@ -28,7 +28,7 @@ module.exports = async function build(options) {
     })
     buildSync({
       entryPoints: [`${appDir}/sw/install.js`],
-      outfile: `${appDir}/dist/install.js`,
+      outfile: `${appDir}/dist/client/__layer0__/service-worker/install.js`,
       minify: true,
       bundle: true,
       define: {
