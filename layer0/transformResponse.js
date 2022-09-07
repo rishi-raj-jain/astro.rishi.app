@@ -27,11 +27,6 @@ export default async function transformResponse(res, req) {
 
           // If such a selector exists, remove the existing link and generate CSS
           if (cssHrefSelector && cssHrefSelector.attr('href').length > 0) {
-            // Remove such element if it exists
-            // This is blocking CSS and what I attempt to do is to create CSS on the fly instead
-            // Why? Blocking CSS it should be but not require the CSS of the whole app to be blocking
-            $(`link[rel="stylesheet"][href*="about-"][href*=".css"]`).remove()
-
             // Define the base CSS, use this as the global styles
             const sourceCSS = `
           @tailwind base;
@@ -53,7 +48,15 @@ export default async function transformResponse(res, req) {
             const css = await postcss([tailwindcss(tailwindConfig)]).process(sourceCSS)
 
             // If there's a css, append it to the page
-            if (css.css.length > 0) $('head').append(`<style>${css.css}</style>`)
+            if (css.css.length > 0) {
+              $('head').append(`<style>${css.css}</style>`)
+              // Remove such element if it exists
+              // This is blocking CSS and what I attempt to do is to create CSS on the fly instead
+              // Why? Blocking CSS it should be but not require the CSS of the whole app to be blocking
+              $(`link[rel="stylesheet"][href*="about-"][href*=".css"]`).remove()
+            }
+          } else {
+            console.log('Did not found such a selector.')
           }
 
           // ES-Import html-minifier es module
