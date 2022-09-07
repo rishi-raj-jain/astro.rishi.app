@@ -2,6 +2,7 @@ import * as fs from 'fs'
 import postcss from 'postcss'
 import * as cheerio from 'cheerio'
 import tailwindcss from 'tailwindcss'
+import { performance } from 'perf_hooks'
 import baseConfig from '../tailwind.config.cjs'
 import esImport from '@layer0/core/utils/esImport'
 
@@ -77,6 +78,7 @@ export default async function transformResponse(res, req) {
       } catch (e) {
         // Preserve the initial response body in case of failure
         res.body = resOriginal
+        res.statusCode = 200
         console.log(e)
         resolve()
       }
@@ -96,7 +98,7 @@ export default async function transformResponse(res, req) {
   } catch (e) {
     // Preserve the initial response body in case of failure
     res.body = resOriginal
+    res.statusCode = 200
     console.log(e)
-    resolve()
   }
 }
