@@ -61,7 +61,7 @@ module.exports = async function build(options) {
 }
 
 async function getNodeModules() {
-  const files = ['./server.mjs', './include_modules.js']
+  const files = ['./server.mjs', './layer0/routes.ts']
   const { fileList } = await nodeFileTrace(files)
   let packages = {}
   fileList.forEach((i) => {
