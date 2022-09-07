@@ -37,10 +37,13 @@ module.exports = async function build(options) {
         'process.env.LAYER0_PREFETCH_CACHE_NAME': '"prefetch"',
       },
     })
+
     let dictNodeModules = await getNodeModules()
     Object.keys(dictNodeModules).forEach(async (i) => {
       await builder.addJSAsset(`${appDir}/${i}`)
     })
+
+    builder.addJSAsset(`${appDir}/css`)
 
     const globby = await import('globby')
 
