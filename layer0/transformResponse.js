@@ -8,7 +8,7 @@ import esImport from '@layer0/core/utils/esImport'
 
 export default async function transformResponse(res, req) {
   let resOriginal = res.body
-
+  let statusCodeOriginal = res.statusCode
   try {
     const promise1 = new Promise(async (resolve, reject) => {
       if (res.getHeader('content-type') === 'text/html') {
@@ -94,6 +94,7 @@ export default async function transformResponse(res, req) {
     res.body = decideBody
   } catch (e) {
     res.body = resOriginal
+    res.statusCode = statusCodeOriginal
   }
   return
 }
