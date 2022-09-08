@@ -59,6 +59,8 @@ export default async function transformResponse(res, req) {
           }
 
           // ES-Import html-minifier es module
+          // This is not detected by @vercel/nft
+          // Hence, included in include_modules.js
           const { minify } = await esImport('html-minifier')
 
           // Replace the a.storyblok.com path with the proxied path
