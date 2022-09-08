@@ -28,10 +28,10 @@ export default async function transformResponse(res, req) {
           if (cssHrefSelector && cssHrefSelector.attr('href').length > 0) {
             // Define the base CSS, use this as the global styles
             const sourceCSS = `
-            @tailwind base;
-            @tailwind components;
-            @tailwind utilities;
-          `
+              @tailwind base;
+              @tailwind components;
+              @tailwind utilities;
+            `
 
             // Remove the sets of content to purge as nothing to purge there
             delete baseConfig['content']
@@ -63,8 +63,12 @@ export default async function transformResponse(res, req) {
           // Hence, included in include_modules.js
           const { minify } = await esImport('html-minifier')
 
+          // Replace all the storyblok hrefs to relative URLs
+          const finalHTML = $.html().replace(/https:\/\/a\.storyblok\.com\//g, '/l0-storyblok/')
+          // .replace(/>\s+</g, '><') // Can't do this as this affects how code is rendered
+
           // Replace the a.storyblok.com path with the proxied path
-          res.body = minify($.html().replace(/https:\/\/a\.storyblok\.com\//g, '/l0-storyblok/'), {
+          res.body = minify(finalHTML, {
             decodeEntities: true,
             minifyCSS: true,
             minifyJS: true,
@@ -76,13 +80,15 @@ export default async function transformResponse(res, req) {
             // collapseWhitespace: true, // Can't do this as it leads to client-side react errors
             collapseInlineTagWhitespace: true,
           })
+          // Return with the minified HTML
           await resolve(res.body)
-          // .replace(/>\s+</g, '><') // Can't do this as this affects how code is rendered
         } else {
+          // If not a HTML, resolve with the what it came with
           await resolve(resOriginal)
         }
       } catch (e) {
         console.log(e)
+        // If some error, fallback to what it came with
         res.statusCode = statusCodeOriginal
         await resolve(resOriginal)
       }
@@ -100,6 +106,7 @@ export default async function transformResponse(res, req) {
 
     console.log(`Call to ${req.url} took ${endTime - startTime} milliseconds`)
     res.body = decideBody
+    res.statusCode = statusCodeOriginal
   } catch (e) {
     console.log(e)
     res.body = resOriginal
