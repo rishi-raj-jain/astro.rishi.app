@@ -39,7 +39,7 @@ try {
 </MainLayout>
 
 <script is:inline defer>
-  document.querySelectorAll('h2').forEach((element) => {
+  document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((element) => {
     element.onclick = () => (window.location.hash = `#${element.id}`)
     element.classList.add('heading_hover_hash')
   })
