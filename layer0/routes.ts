@@ -1,9 +1,16 @@
 import { Router } from '@layer0/core/router'
+import { getAllPostsForHome } from '../src/api'
 import transformResponse from './transformResponse'
 import { isProductionBuild } from '@layer0/core/environment'
 import { ONE_DAY_CACHE_HANDLER, ONE_DAY_CACHE_VALUES } from './cache'
 
 const router = new Router()
+
+// Pre-Render Requests as soon as deployed to warm cache
+router.prerender(async () => {
+  const resp = await getAllPostsForHome()
+  return ['/', '/about', '/blogs', '/cv', '/storyblok', ...resp.map((i) => `/blog/${i.slug}`)]
+})
 
 // Regex to catch multiple hostnames
 // Any deployment will have a L0 permalink
