@@ -21,13 +21,14 @@ const {
   <head>
     <BaseHead title={title} description={description} />
     <style is:global>
-      .h2_underline:hover {
+      .heading_hover_hash:hover {
+        cursor: pointer;
         text-decoration: underline;
       }
-      .h2_underline:hover::before {
+      .heading_hover_hash:hover::before {
         content: '#';
         opacity: 0.5;
-        color: black;
+        color: gray;
         margin-right: 10px;
       }
     </style>
