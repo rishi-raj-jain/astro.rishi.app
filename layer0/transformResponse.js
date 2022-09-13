@@ -31,6 +31,17 @@ export default async function transformResponse(res, req) {
               @tailwind base;
               @tailwind components;
               @tailwind utilities;
+              /* Add global CSS here as well */
+              .heading_hover_hash:hover {
+                cursor: pointer;
+                text-decoration: underline;
+              }
+              .heading_hover_hash:hover::before {
+                content: '#';
+                opacity: 0.5;
+                color: gray;
+                margin-right: 10px;
+              }
             `
 
             // Remove the sets of content to purge as nothing to purge there
