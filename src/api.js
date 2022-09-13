@@ -1,6 +1,8 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
 
+import fetch from 'node-fetch'
+
 async function fetchAPI(query, { variables, preview } = {}) {
   const res = await fetch('https://gapi.storyblok.com/v1/api', {
     method: 'POST',
