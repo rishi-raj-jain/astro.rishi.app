@@ -14,16 +14,12 @@ export default async function transformResponse(res, req) {
       try {
         if (res.getHeader('content-type') === 'text/html') {
           const $ = cheerio.load(res.body)
-
           // Read the list of URLs to be prefetched
           const prefetchList = JSON.parse(fs.readFileSync('./toPrefetchList.json', 'utf8'))
-
           // Create prefetch urls that will be prefetched by SW
           prefetchList.prefetch.forEach((i) => $('body').append(`<prefetch-url url="/${i}" />`))
-
           // Find the stylesheet that calls the global CSS -> a css that contains styles for the whole app -> created by astro
           const cssHrefSelector = $(`link[rel="stylesheet"][href*="about-"][href*=".css"]`)
-
           // If such a selector exists, remove the existing link and generate CSS
           if (cssHrefSelector && cssHrefSelector.attr('href').length > 0) {
             // Define the base CSS, use this as the global styles
@@ -43,20 +39,16 @@ export default async function transformResponse(res, req) {
                 margin-right: 10px;
               }
             `
-
             // Remove the sets of content to purge as nothing to purge there
             delete baseConfig['content']
-
             const tailwindConfig = {
               // Pass the plugin preset
               presets: [baseConfig],
               // Defining content as the html of the page to just generate the CSS received on the page
               content: [{ raw: $.html(), extension: 'html' }],
             }
-
             // Get the processsed css
             const css = await postcss([tailwindcss(tailwindConfig)]).process(sourceCSS)
-
             // If there's a css, append it to the page
             if (css.css.length > 0) {
               $('head').append(`<style>${css.css}</style>`)
@@ -73,11 +65,9 @@ export default async function transformResponse(res, req) {
           // This is not detected by @vercel/nft
           // Hence, included in include_modules.js
           const { minify } = await esImport('html-minifier')
-
           // Replace all the storyblok hrefs to relative URLs
           const finalHTML = $.html().replace(/https:\/\/a\.storyblok\.com\//g, '/l0-storyblok/')
           // .replace(/>\s+</g, '><') // Can't do this as this affects how code is rendered
-
           // Replace the a.storyblok.com path with the proxied path
           res.body = minify(finalHTML, {
             decodeEntities: true,
@@ -104,17 +94,16 @@ export default async function transformResponse(res, req) {
         await resolve(resOriginal)
       }
     })
-
     const promise2 = new Promise((resolve, reject) => {
       setTimeout(resolve, 10 * 1000, resOriginal)
     })
-
+    // Start measuring the time it took to process in the lambda
     var startTime = performance.now()
-
+    // Finish original vs transformedResponse
     const decideBody = await Promise.race([promise1, promise2])
-
+    // Stop measuring the time it took to process in the lambda
     var endTime = performance.now()
-
+    // Print how much seconds it took
     console.log(`Call to ${req.url} took ${endTime - startTime} milliseconds`)
     res.body = decideBody
     res.statusCode = statusCodeOriginal
