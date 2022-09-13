@@ -9,7 +9,7 @@ const router = new Router()
 // Pre-Render Requests as soon as deployed to warm cache
 router.prerender(async () => {
   const resp = await getAllPostsForHome()
-  return ['/', '/about', '/blogs', '/cv', '/storyblok', ...resp.map((i) => `/blog/${i.slug}`)]
+  return ['/', '/about', '/blogs', '/cv', '/storyblok', ...resp.map((i) => `/blog/${i.slug}`)].map((i) => ({ path: i }))
 })
 
 // Regex to catch multiple hostnames
