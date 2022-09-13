@@ -41,57 +41,50 @@ const {
         {valid && <slot />}
       </div>
     </main>
-    <link as="font" type="font/woff2" crossorigin="anonymous" href="/fonts/inter-var.woff2" />
     <script defer>
-      let t
-
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/css/dark.css'
-
+      // Add listener to sessionStorage events
+      const themeChangeListener = () => {
+        let sessionTheme = sessionStorage.getItem('theme')
+        if (sessionTheme === 'light') {
+          document.documentElement.classList.remove('dark')
+        } else {
+          document.documentElement.classList.add('dark')
+          if (!window.setDark) {
+            // Set the flag as added already
+            window.setDark = true
+            // Create dark.css link element
+            const link = document.createElement('link')
+            link.rel = 'stylesheet'
+            link.href = '/css/dark.css'
+            document.body.appendChild(link)
+          }
+        }
+      }
+      // Check the theme preferred in the window acc. to the zone
       const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme')
+        if (typeof window !== 'undefined') {
+          return window.sessionStorage.getItem('theme') || 'light'
         }
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
           return 'dark'
         }
         return 'light'
       })()
-
-      if (theme === 'light') {
-        document.documentElement.classList.remove('dark')
-        if (t) t.remove()
-      } else {
-        document.documentElement.classList.add('dark')
-        if (t) {
-          document.body.appendChild(t)
-        } else {
-          t = document.body.appendChild(link)
-        }
-      }
-      window.localStorage.setItem('theme', theme)
-
+      // Set the theme as light / dark
+      window.sessionStorage.setItem('theme', theme)
+      themeChangeListener()
+      // Toggle theme function
       const toggleTheme = () => {
         let existingTheme
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          existingTheme = localStorage.getItem('theme')
+        if (typeof window !== 'undefined' && window.sessionStorage.getItem('theme')) {
+          existingTheme = window.sessionStorage.getItem('theme')
         }
         if (existingTheme) {
-          if (existingTheme === 'dark') {
-            document.documentElement.classList.remove('dark')
-            if (t) t.remove()
-            window.localStorage.setItem('theme', 'light')
-          } else {
-            document.documentElement.classList.add('dark')
-            if (t) {
-              document.body.appendChild(t)
-            } else {
-              t = document.body.appendChild(link)
-            }
-            window.localStorage.setItem('theme', 'dark')
-          }
+          window.sessionStorage.setItem('theme', existingTheme === 'dark' ? 'light' : 'dark')
+        } else {
+          window.sessionStorage.setItem('theme', 'light')
         }
+        themeChangeListener()
       }
     </script>
     <script defer is:inline src="/__layer0__/service-worker/install.js"></script>

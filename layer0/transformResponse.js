@@ -21,7 +21,7 @@ export default async function transformResponse(res, req) {
           // Find the stylesheet that calls the global CSS -> a css that contains styles for the whole app -> created by astro
           const cssHrefSelector = $(`link[rel="stylesheet"][href*="about-"][href*=".css"]`)
           // If such a selector exists, remove the existing link and generate CSS
-          if (cssHrefSelector && cssHrefSelector.attr('href').length > 0) {
+          if (cssHrefSelector && cssHrefSelector.attr('href') && cssHrefSelector.attr('href').length > 0) {
             // Define the base CSS, use this as the global styles
             const sourceCSS = `
               @tailwind base;
