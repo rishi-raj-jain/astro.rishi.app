@@ -1,15 +1,7 @@
 ---
-import Header from '../components/Header.astro'
-import BaseHead from '../components/BaseHead.astro'
+import Header from '@/components/Header.astro'
+import BaseHead from '@/components/BaseHead.astro'
 import { SITE_DESCRIPTION, SITE_TITLE } from '../config'
-
-export interface Props {
-  content: {
-    title?: string
-    description?: string
-  }
-  valid: Object
-}
 
 const {
   content: { title = SITE_TITLE, description = SITE_DESCRIPTION },
@@ -41,7 +33,7 @@ const {
         {valid && <slot />}
       </div>
     </main>
-    <script defer>
+    <script>
       // Add listener to sessionStorage events
       const themeChangeListener = () => {
         let sessionTheme = sessionStorage.getItem('theme')
@@ -49,15 +41,6 @@ const {
           document.documentElement.classList.remove('dark')
         } else {
           document.documentElement.classList.add('dark')
-          if (!window.setDark) {
-            // Set the flag as added already
-            window.setDark = true
-            // Create dark.css link element
-            const link = document.createElement('link')
-            link.rel = 'stylesheet'
-            link.href = '/css/dark.css'
-            document.body.appendChild(link)
-          }
         }
       }
       // Check the theme preferred in the window acc. to the zone
@@ -86,13 +69,40 @@ const {
         }
         themeChangeListener()
       }
+      if ('serviceWorker' in navigator) {
+        fetch('/version.json')
+          .then((res) => res.json())
+          .then((res) => {
+            if (res && res.version) {
+              localStorage.setItem('received-sw-version', res.version)
+              console.log('going to register.')
+              navigator.serviceWorker.register('/service-worker.js').then(
+                (registration) => {
+                  console.log('Service worker registration succeeded:', registration)
+                  const swVersion = localStorage.getItem('sw-version')
+                  if (swVersion) {
+                    if (swVersion !== res.version) {
+                      console.log('Update registeration')
+                      self.caches.delete('prefetch').then(() => {
+                        registration.update().then(() => {
+                          // Update the version if updated locally
+                          localStorage.setItem('sw-version', res.version)
+                        })
+                      })
+                    }
+                  } else {
+                    localStorage.setItem('sw-version', res.version)
+                  }
+                },
+                (error) => {
+                  console.error(`Service worker registration failed: ${error}`)
+                }
+              )
+            }
+          })
+      } else {
+        console.error('Service workers are not supported.')
+      }
     </script>
-    <script defer is:inline src="/__layer0__/service-worker/install.js"></script>
-    <link rel="stylesheet" href="/fonts/inter-var.woff2" media="print" onload="this.onload=null;this.media='all'" />
-    {
-      Astro.url.pathname.includes('/blog/') && (
-        <link rel="stylesheet" href="/css/light.css" media="print" onload="this.onload=null;this.media='all'" />
-      )
-    }
   </body>
 </html>

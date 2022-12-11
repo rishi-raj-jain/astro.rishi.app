@@ -1,27 +1,29 @@
 ---
 import { cv } from '../config'
-import MainLayout from '../layouts/MainLayout.astro'
+import MainLayout from '@/layouts/MainLayout.astro'
 ---
 
 <MainLayout valid={cv} content={{ title: 'CV - Rishi Raj Jain' }}>
   <div class="flex w-full flex-col items-center text-[14px]">
     <div class="mt-10 flex w-[90vw] max-w-[540px] flex-col">
       <h2 class="text-3xl font-bold text-zinc-700 dark:text-gray-300">Rishi Raj Jain</h2>
-      <h2 id="About" class="mt-10 text-zinc-700 dark:text-gray-300">About</h2>
+      <a href="#About" id="About" class="mt-10 text-zinc-700 dark:text-gray-300">About</a>
       <p class="mt-2 font-light text-slate-600 dark:text-slate-400">
-        Technical Customer Success Manager at{' '}
-        <a target="_blank" class="text-black underline dark:text-slate-200" href="https://edg.io"> Edgio</a>
-        .{' '}
-        <a target="_blank" class="text-black underline dark:text-slate-200" href="https://storyblok.com"> Storyblok</a>{' '}
-        Ambassador. Synchronising my knowledge with community about Web Development, Caching, Edge Computing, Serverless, front-end ecosystems.
+        Technical Customer Success Manager at <a target="_blank" class="text-black underline dark:text-slate-200" href="https://edg.io"> Edgio</a>. <a
+          target="_blank"
+          href="https://storyblok.com"
+          class="text-black underline dark:text-slate-200"
+        >
+          Storyblok</a
+        > Ambassador. Synchronising my knowledge with community about Web Development, Caching, Edge Computing, Serverless, front-end ecosystems.
       </p>
     </div>
     {
       Object.keys(cv).map((i) => (
         <div class="mt-10 flex w-[90vw] max-w-[540px] flex-col gap-y-5">
-          <h2 id={i} class="text-zinc-700 dark:text-gray-300">
+          <a href={`#${i}`} id={i} class="text-zinc-700 dark:text-gray-300">
             {i}
-          </h2>
+          </a>
           {cv[i].map((j, _ind) => (
             <div class="flex flex-col gap-y-2 gap-x-10 md:flex-row md:gap-y-0">
               <p class="min-w-[100px] font-light text-gray-400">{j.name}</p>

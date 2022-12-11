@@ -1,0 +1,30 @@
+---
+import Heart from './Heart.astro'
+import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
+
+const { data } = Astro.props
+---
+
+<h1 class="text-2xl font-bold sm:text-5xl">About Me</h1>
+<h2 set:html={new RichTextResolver().render(data.aboutTagline)} class="font-regular text-md mt-5 whitespace-pre-line dark:text-gray-400 sm:text-xl" />
+<h1 class="mt-16 text-2xl font-bold sm:text-5xl">My Timeline</h1>
+{
+  Object.keys(data.Timeline)
+    .sort((a, b) => (a > b ? -1 : 1))
+    .map((item) => (
+      <div class="mt-8 flex flex-col">
+        <span class="text-lg font-bold">{item}</span>
+        {data.Timeline[item].map((exp) => (
+          <div class="relative mt-5 flex flex-row items-start space-x-5">
+            <div class="mt-1 h-[12px] w-[12px]">
+              <Heart width={12} height={21} />
+            </div>
+            <div class="flex flex-col">
+              <span class="text-md font-semibold sm:text-lg">{exp.content.Title}</span>
+              <span class="dark:text-gray-400" set:html={new RichTextResolver().render(exp.content.Description)} />
+            </div>
+          </div>
+        ))}
+      </div>
+    ))
+}

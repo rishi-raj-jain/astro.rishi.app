@@ -1,0 +1,7 @@
+---
+import { month, weekday } from '../operations'
+
+const { date } = Astro.props
+---
+
+<span set:text={`${weekday[date.getDay()]}, ${month[date.getMonth()]} ${date.getDate()} ${date.getFullYear()}`} />

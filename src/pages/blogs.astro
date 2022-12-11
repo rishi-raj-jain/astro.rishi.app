@@ -1,7 +1,7 @@
 ---
-import SearchBar from '../components/SearchBar'
-import DateString from '../components/DateString'
-import MainLayout from '../layouts/MainLayout.astro'
+import SearchBar from '@/components/SearchBar'
+import MainLayout from '@/layouts/MainLayout.astro'
+import DateString from '@/components/DateString.astro'
 import { getAllPostsForHome, getRecommendedPosts, getTagline } from '../api'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
@@ -15,12 +15,7 @@ try {
 } catch (e) {
   console.log(e)
 }
-
-import Prefetch from '../components/Prefetch'
 ---
-
-<Prefetch client:idle url={`/css/dark.css`} />
-<Prefetch client:idle url={`/css/light.css`} />
 
 <MainLayout valid={data} content={{ title: 'Blogs - Rishi Raj Jain' }}>
   <div class="flex flex-col">
@@ -30,8 +25,7 @@ import Prefetch from '../components/Prefetch'
       class={`font-regular text-md mt-5 whitespace-pre-line dark:text-gray-400 sm:text-xl ${
         data.blogsTagline ? '' : 'bg-black dark:bg-gray-400 animate-pulse'
       }`}
-    >
-    </h2>
+    />
     {data.allPosts[0] != 0 && <SearchBar client:visible content={data.allPosts} />}
     <div class="flex flex-row flex-wrap">
       <div class="mt-10 flex w-full flex-col lg:mt-20 lg:w-2/3 lg:pr-10">
@@ -65,7 +59,6 @@ import Prefetch from '../components/Prefetch'
               >
                 Read More &rarr;
               </a>
-              {item && item.slug ? <Prefetch client:idle url={`/blog/${item.slug}`} /> : ''}
             </div>
           ))
         }

@@ -24,8 +24,8 @@ export const cv = {
     },
     { name: '2021 — Now', title: 'Ambassador at Storyblok', href: 'https://twitter.com/rishi_raj_jain_/status/1443257781830631426' },
     { name: '2022 — 2022', title: 'Solutions Architect - Technical Customer Success at Edgio', href: 'https://edg.io' },
-    { name: '2021 — 2022', title: 'Solutions / DevRel at Layer0 by Limelight Networks', href: 'https://limelight.com' },
-    { name: '2019 — 2021', title: 'Developer Evangelist, Freelance at Layer0', href: 'https://layer0.co' },
+    { name: '2021 — 2022', title: 'Solutions / DevRel at Edgio by Limelight Networks', href: 'https://limelight.com' },
+    { name: '2019 — 2021', title: 'Developer Evangelist, Freelance at Edgio', href: 'https://edg.io' },
     { name: '2021 — 2021', title: 'Software Engineer at Digital Product School, Germany', href: 'https://digitalproductschool.io/' },
     { name: '2020 — 2020', title: 'UI Engineer, Freelance at Arian Architects', href: 'https://arian-architects.github.io' },
     { name: '2019 — 2020', title: 'UI Engineer, Intern at Wellowise', href: 'https://wellowise.com' },
@@ -70,24 +70,24 @@ export const storyblok = {
   Tutorials: [
     {
       name: 'Sep 27, 2021',
-      title: 'Build Your Personal Blog With Next.js, Storyblok, and Layer0',
+      title: 'Build Your Personal Blog With Next.js, Storyblok, and Edgio',
       href: 'https://www.storyblok.com/tp/blog-next-layer0',
     },
     {
       name: 'Jul 9, 2021',
-      title: 'Deploy Next SPA with Storyblok to Layer0',
+      title: 'Deploy Next SPA with Storyblok to Edgio',
       href: 'https://www.storyblok.com/tp/deploy-next-spa-with-storyblok-to-layer0',
     },
   ],
   Talks: [
     {
       name: 'Feb. 2022',
-      title: 'Establishing Fastest Online Presence with Next.js, Storyblok and Layer0',
+      title: 'Establishing Fastest Online Presence with Next.js, Storyblok and Edgio',
       href: 'https://youtu.be/r1BMNqI5Uwk?list=PL02pdjMT4gWzMOk6BEZBEubBtoKEkz0g9&t=1',
     },
     {
       name: 'Oct. 2021',
-      title: 'Super fast blogs with Layer0, Storyblok and Next.js',
+      title: 'Super fast blogs with Edgio, Storyblok and Next.js',
       href: 'https://www.youtube.com/watch?v=6U08V187cpc&t=5168s',
     },
     {
@@ -104,17 +104,17 @@ export const storyblok = {
     },
     {
       name: 'Feb. 2022',
-      title: 'Dynamic portfolio with Layer0, Storyblok and Next.js',
+      title: 'Dynamic portfolio with Edgio, Storyblok and Next.js',
       href: 'https://github.com/rishi-raj-jain/layer0-storyblok-nextjs-portfolio-starter',
     },
     {
       name: 'Sept. 2021',
-      title: 'Super fast blogs with Layer0, Storyblok and Next.js',
+      title: 'Super fast blogs with Edgio, Storyblok and Next.js',
       href: 'https://github.com/rishi-raj-jain/blog-next-storyblok-layer0-starter',
     },
     {
       name: 'Jul. 2021',
-      title: 'Next.js Storyblok Layer0 Starter',
+      title: 'Next.js Storyblok Edgio Starter',
       href: 'https://github.com/rishi-raj-jain/next-storyblok-layer0-starter',
     },
   ],
