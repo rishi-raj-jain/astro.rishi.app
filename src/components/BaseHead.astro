@@ -1,14 +1,14 @@
 ---
-const { title, description, image = '/placeholder-social.jpg' } = Astro.props
+const { title, description, image = '/static/social-media-card.jpg' } = Astro.props
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="generator" content={Astro.generator} />
-<meta property="og:locale" content="en_US" />
 <meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta name="generator" content={Astro.generator} />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
@@ -16,15 +16,15 @@ const { title, description, image = '/placeholder-social.jpg' } = Astro.props
 <meta name="description" content={description} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
+<meta property="og:type" content="website" />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={new URL(image, Astro.site)} />
+<meta property="og:url" content={`${Astro.site}${Astro.url.pathname}`} />
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content={new URL(image, Astro.site)} />
+<meta property="twitter:url" content={`${Astro.site}${Astro.url.pathname}`} />
