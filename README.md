@@ -19,7 +19,7 @@
 
 ## Introduction
 
-Built with [Astro](https://astro.build), [Edgio](https://edg.io) and [TailwindCSS](https://tailwindcss.com).
+Built with [Astro](https://astro.build), [Edgio](https://edg.io), [Storyblok](https://storyblok.com) and [TailwindCSS](https://tailwindcss.com).
 
 ## Deploy Your Own
 
@@ -30,6 +30,7 @@ You can deploy your own hosted version of Rishi Raj Jain's Astro website.
 ## Tech Stack
 
 - [Astro](https://astro.build) – framework
+- [Storyblok](https://storyblok.com) – cms
 - [TailwindCSS](https://tailwindcss.com) – styling
 - [Edgio](https://edg.io) – hosting
 
