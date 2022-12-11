@@ -2,9 +2,9 @@
 // You should commit this file to source control.
 import { load } from 'cheerio'
 import { Router } from '@edgio/core'
-import { minify } from 'html-minifier'
 import { astroRoutes } from '@edgio/astro'
 import { minifyOptions } from 'minifyOptions'
+import esImport from '@edgio/core/utils/esImport'
 
 const paths = ['/', '/cv', '/blogs', '/storyblok', '/about', '/blog/:path*']
 
@@ -19,12 +19,13 @@ paths.forEach((i) => {
       },
       browser: false,
     })
-  })
-  renderWithApp({
-    transformResponse: (res, req) => {
-      const $ = load(res.body)
-      res.body = minify($.html(), minifyOptions)
-    },
+    renderWithApp({
+      transformResponse: async (res, req) => {
+        const $ = load(res.body)
+        const { minify } = await esImport('html-minifier')
+        res.body = minify($.html(), minifyOptions)
+      },
+    })
   })
 })
 
