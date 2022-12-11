@@ -33,7 +33,7 @@ const {
         {valid && <slot />}
       </div>
     </main>
-    <script>
+    <script is:inline>
       // Add listener to sessionStorage events
       const themeChangeListener = () => {
         let sessionTheme = sessionStorage.getItem('theme')
