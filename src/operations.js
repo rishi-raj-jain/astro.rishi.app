@@ -50,24 +50,11 @@ export const getOrigin = (req) => {
 import prism from 'remark-prism'
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
-import rehypeParse from 'rehype-parse'
-import rehypeRemark from 'rehype-remark'
 import remarkRehype from 'remark-rehype'
-import remarkStringify from 'remark-stringify'
 import rehypeStringify from 'rehype-stringify'
-// import customHeaders from './remark-header-custom-ids'
-
-unified()
-  .use(remarkParse) // Parse markdown content to a syntax tree
-  .use(remarkRehype) // Turn markdown syntax tree to HTML syntax tree, ignoring embedded HTML
-  .use(rehypeStringify) // Serialize HTML syntax tree
-  .process('*emphasis* and **strong**')
-  .then((file) => console.log(String(file)))
-  .catch((error) => {
-    throw error
-  })
+import customHeaders from './remark-header-custom-ids'
 
 export default async function markdownToHtml(markdown) {
-  const result = await unified().use(remarkParse).use(prism).use(remarkRehype).use(rehypeStringify).process(markdown) // .use(customHeaders)
+  const result = await unified().use(remarkParse).use(customHeaders).use(prism).use(remarkRehype).use(rehypeStringify).process(markdown)
   return result.toString()
 }
