@@ -4,11 +4,18 @@ import { load } from 'cheerio'
 import { Router } from '@edgio/core'
 import { astroRoutes } from '@edgio/astro'
 import { minifyOptions } from 'minifyOptions'
+import { getAllPostsForHome } from '@/src/api'
 import esImport from '@edgio/core/utils/esImport'
 
 const paths = ['/', '/cv', '/blogs', '/storyblok', '/about', '/blog/:path*']
 
-const router = new Router()
+const router = new Router({ indexPermalink: true })
+
+router.prerender(async () => {
+  const blogs = await getAllPostsForHome()
+  const nonDynamicPaths = ['/', '/cv', '/about', '/blogs', '/storyblok']
+  return [...blogs.map((i) => ({ path: `/blog/${i.slug}` })), ...nonDynamicPaths.map((i) => ({ path: i }))]
+})
 
 paths.forEach((i) => {
   router.match(i, ({ cache, removeUpstreamResponseHeader, renderWithApp }) => {
