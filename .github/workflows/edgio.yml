@@ -1,6 +1,7 @@
-name: Deploy to Edgio
+name: Deploy to astro.rishi.app
 
 on:
+  push:
   workflow_dispatch:
 
 jobs:
