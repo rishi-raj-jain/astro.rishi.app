@@ -1,6 +1,7 @@
 name: Deploy to Edgio
 
 on:
+  push:
   workflow_dispatch:
 
 jobs:
@@ -12,6 +13,6 @@ jobs:
         with:
           node-version: 16
       - run: npm ci
-      - run: npm run edgio:deploy -- -e=astro --token=$EDGIO_DEPLOY_TOKEN
+      - run: npm run edgio:deploy -- -e=default --token=$EDGIO_DEPLOY_TOKEN
         env:
           EDGIO_DEPLOY_TOKEN: ${{secrets.LAYER0_DEPLOY_TOKEN}}
