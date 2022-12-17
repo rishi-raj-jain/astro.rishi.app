@@ -12,6 +12,13 @@ const {
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
+    <noscript>
+      <style>
+        .hide-if-no-javascript {
+          display: none;
+        }
+      </style>
+    </noscript>
     <style is:global>
       .heading_hover_hash:hover {
         cursor: pointer;
@@ -121,5 +128,7 @@ const {
       })
     </script>
     <link rel="stylesheet" href="/css/dark.css" />
+
+
   </body>
 </html>

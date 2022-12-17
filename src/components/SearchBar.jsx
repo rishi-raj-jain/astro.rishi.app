@@ -40,7 +40,7 @@ export default function SearchBar({}) {
           }
         }}
         placeholder="Search Posts..."
-        className="w-1/2 rounded-lg border bg-white py-2 px-5 text-sm outline-none dark:border-gray-600 dark:bg-black"
+        className="w-full rounded-lg border bg-white py-2 px-5 text-sm outline-none dark:border-gray-600 dark:bg-black"
       />
       {searcValue.length > 0 && (
         <div className={`top-10 mt-2 shadow ${message.length > 0 ? 'p-5' : ''} `}>

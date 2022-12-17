@@ -26,7 +26,13 @@ try {
         data.blogsTagline ? '' : 'bg-black dark:bg-gray-400 animate-pulse'
       }`}
     />
-    {data.allPosts[0] != 0 && <SearchBar client:visible content={data.allPosts} />}
+    {
+      data.allPosts[0] != 0 && (
+        <span class="w-1/2 hide-if-no-javascript">
+          <SearchBar client:only="react" />
+        </span>
+      )
+    }
     <div class="flex flex-row flex-wrap">
       <div class="mt-10 flex w-full flex-col lg:mt-20 lg:w-2/3 lg:pr-10">
         {
