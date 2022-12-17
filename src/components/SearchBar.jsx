@@ -23,7 +23,10 @@ export default function SearchBar({}) {
                 text: e.target.value,
               }),
             })
-              .then((res) => res.json())
+              .then((res) => {
+                if (!res.ok) throw new Error(res.statusText)
+                else return res.json()
+              })
               .then((res) => {
                 setLoading(false)
                 if (res && res.data) {

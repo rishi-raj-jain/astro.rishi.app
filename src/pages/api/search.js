@@ -1,6 +1,20 @@
 import { getAllPostsForHome } from '@/src/api'
 
 export async function post({ request }) {
+  const allowedOrigins = ['://rishi.app', '://astro.rishi.app']
+  const origin = request.headers.get('Origin')
+
+  if (origin) {
+    if (allowedOrigins.find((i) => origin.includes(i))) {
+      // Do some operation
+      // None for now
+    } else {
+      return new Response(null, {
+        status: 404,
+      })
+    }
+  }
+
   try {
     const { text } = await request.json()
     if (!text) {
