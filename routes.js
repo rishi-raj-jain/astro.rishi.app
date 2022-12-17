@@ -1,5 +1,6 @@
 // This file was automatically added by edgio init.
 // You should commit this file to source control.
+
 import { load } from 'cheerio'
 import { Router } from '@edgio/core'
 import { astroRoutes } from '@edgio/astro'
@@ -10,6 +11,11 @@ import esImport from '@edgio/core/utils/esImport'
 const paths = ['/', '/cv', '/blogs', '/storyblok', '/about', '/blog/:path*']
 
 const router = new Router({ indexPermalink: true })
+
+// Disable cross origin fetch of /api route
+router.match('/api/:path*', ({ setResponseHeader }) => {
+  setResponseHeader('Access-Control-Allow-Origin', 'https://rishi.app')
+})
 
 router.prerender(async () => {
   const blogs = await getAllPostsForHome()
