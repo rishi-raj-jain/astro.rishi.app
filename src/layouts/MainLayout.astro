@@ -7,6 +7,8 @@ const {
   content: { title = SITE_TITLE, description = SITE_DESCRIPTION },
   valid,
 } = Astro.props
+
+const loadDarkOnPriority = Astro.url.pathname.includes('/blog/')
 ---
 
 <html lang="en">
@@ -127,8 +129,6 @@ const {
         })
       })
     </script>
-    <link rel="stylesheet" href="/css/dark.css" />
-
-
+    <link media={loadDarkOnPriority ? "all" : "print"} onload={loadDarkOnPriority ? "" : "this.media='all'"} rel="stylesheet" href="/css/dark.css" />
   </body>
 </html>
