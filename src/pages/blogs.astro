@@ -28,7 +28,7 @@ try {
     />
     {
       data.allPosts[0] != 0 && (
-        <span class="w-full hide-if-no-javascript">
+        <span class="hide-if-no-javascript w-full">
           <SearchBar client:only="react" />
         </span>
       )
@@ -41,27 +41,27 @@ try {
               <span
                 id={`first_published_at_${_}`}
                 class={`text-gray-700 dark:text-gray-400 ${
-                  item && item.first_published_at ? '' : 'animate-pulse bg-gray-700 dark:bg-gray-400 w-[250px]'
+                  item && item.first_published_at ? '' : 'w-[250px] animate-pulse bg-gray-700 dark:bg-gray-400'
                 }`}
               >
                 {item && item.first_published_at ? <DateString date={new Date(item.first_published_at)} /> : 'placeholder date'}
               </span>
               <a
                 href={item && item.slug ? `/blog/${item.slug}` : ''}
-                class={`mt-3 hover:underline text-lg font-bold sm:text-2xl ${item && item.slug ? '' : 'bg-black animate-pulse'}`}
+                class={`mt-3 text-lg font-bold hover:underline sm:text-2xl ${item && item.slug ? '' : 'animate-pulse bg-black'}`}
               >
                 {item && item.content ? item.content.title : 'placeholder title'}
               </a>
               <span
                 class={`mt-3 text-sm text-gray-700 line-clamp-2 dark:text-gray-400 ${
-                  item && item.content ? '' : 'bg-gray-700 dark:bg-gray-400 animate-pulse w-[200px]'
+                  item && item.content ? '' : 'w-[200px] animate-pulse bg-gray-700 dark:bg-gray-400'
                 }`}
               >
                 {item && item.content ? item.content.intro : 'placeholder intro'}
               </span>
               <a
                 href={item && item.slug ? `/blog/${item.slug}` : ''}
-                class={`mt-5 text-sm uppercase text-blue-500 hover:underline ${item && item.slug ? '' : 'bg-blue-500 animate-pulse w-[100px]'}`}
+                class={`mt-5 text-sm uppercase text-blue-500 hover:underline ${item && item.slug ? '' : 'w-[100px] animate-pulse bg-blue-500'}`}
               >
                 Read More &rarr;
               </a>
@@ -78,7 +78,7 @@ try {
               target="_blank"
               href={item && item.content ? item.content.Url.url : ''}
               class={`mt-5 truncate border-b pb-2 text-sm text-gray-500 hover:underline dark:border-gray-700 dark:text-gray-400 ${
-                item && item.content ? '' : 'bg-gray-500 dark:bg-gray-400 animate-pulse'
+                item && item.content ? '' : 'animate-pulse bg-gray-500 dark:bg-gray-400'
               }`}
             >
               {item && item.content ? item.content.Title : 'placeholder title'}

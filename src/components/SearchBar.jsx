@@ -53,8 +53,8 @@ export default function SearchBar({}) {
             new Array(5).fill(0).map((_, item) => (
               <a key={item}>
                 <div className="flex flex-col border-t py-3 px-5">
-                  <span className="w-[300px] text-md py-3 font-bold px-5 bg-gray-300 animate-pulse"></span>
-                  <span className="mt-3 w-[100px] py-3 text-sm px-5 bg-gray-300 animate-pulse"></span>
+                  <span className="text-md w-[300px] animate-pulse bg-gray-300 py-3 px-5 font-bold"></span>
+                  <span className="mt-3 w-[100px] animate-pulse bg-gray-300 py-3 px-5 text-sm"></span>
                 </div>
               </a>
             ))}
