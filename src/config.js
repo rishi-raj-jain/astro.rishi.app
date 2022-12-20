@@ -69,6 +69,11 @@ export const cv = {
 export const storyblok = {
   Tutorials: [
     {
+      name: 'Mar. 21, 2022',
+      title: 'Establishing Fastest Online Presence with Next.js, Storyblok and Edgio',
+      href: 'https://reactlive.nl/stories/establishing-fastest-online-presence',
+    },
+    {
       name: 'Sep 27, 2021',
       title: 'Build Your Personal Blog With Next.js, Storyblok, and Edgio',
       href: 'https://www.storyblok.com/tp/blog-next-layer0',
@@ -97,6 +102,16 @@ export const storyblok = {
     },
   ],
   Repositories: [
+    {
+      name: 'Dec. 2022',
+      title: 'sveltekit.rishi.app',
+      href: 'https://github.com/rishi-raj-jain/sveltekit.rishi.app',
+    },
+    {
+      name: 'Sept. 2022',
+      title: 'rishi.app',
+      href: 'https://github.com/rishi-raj-jain/rishi.app',
+    },
     {
       name: 'Jul. 2022',
       title: 'Storyblok Upload Data',
