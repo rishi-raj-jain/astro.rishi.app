@@ -1,6 +1,6 @@
 ---
+import BaseHead from '@/components/SEO.astro'
 import Header from '@/components/Header.astro'
-import BaseHead from '@/components/BaseHead.astro'
 import { SITE_DESCRIPTION, SITE_TITLE } from '../config'
 
 const {
@@ -41,7 +41,6 @@ const loadDarkOnPriority = Astro.url.pathname.includes('/blog/')
       }
     </style>
   </head>
-
   <body class="bg-white dark:bg-black min-h-screen font-display">
     <Header />
     <main class="flex flex-col items-center text-black dark:text-gray-200">
@@ -129,6 +128,6 @@ const loadDarkOnPriority = Astro.url.pathname.includes('/blog/')
         })
       })
     </script>
-    <link media={loadDarkOnPriority ? "all" : "print"} onload={loadDarkOnPriority ? "" : "this.media='all'"} rel="stylesheet" href="/css/dark.css" />
+    <link media={loadDarkOnPriority ? 'all' : 'print'} rel="stylesheet" href="/css/dark.css" onload={loadDarkOnPriority ? '' : "this.media='all'"} />
   </body>
 </html>

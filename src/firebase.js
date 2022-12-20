@@ -1,5 +1,5 @@
 import admin from 'firebase-admin'
-import { fireConfig } from './portfolio'
+import { fireConfig } from './firebaseConfig'
 
 try {
   admin.initializeApp({

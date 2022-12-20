@@ -1,0 +1,19 @@
+---
+const { morePosts = [] } = Astro.props
+const filteredPosts = morePosts.filter((item) => item.hasOwnProperty('name'))
+---
+
+{
+  filteredPosts.length > 0 && (
+    <div class="flex flex-col">
+      <div class="mt-10 mb-5 text-sm">
+        <span> More Posts &rarr; </span>
+      </div>
+      {filteredPosts.map((item) => (
+        <a href={`/blog/${item.slug}`} class="mb-5 block w-full text-lg font-bold hover:underline">
+          {item.name}
+        </a>
+      ))}
+    </div>
+  )
+}
