@@ -2,11 +2,11 @@
 // You should commit this file to source control.
 
 import { load } from 'cheerio'
-import { Router } from '@edgio/core'
 import { astroRoutes } from '@edgio/astro'
 import { minifyOptions } from 'minifyOptions'
 import { getAllPostsForHome } from '@/src/api'
 import esImport from '@edgio/core/utils/esImport'
+import { CustomCacheKey, Router } from '@edgio/core'
 
 const paths = ['/', '/cv', '/blogs', '/storyblok', '/about', '/blog/:path*']
 
@@ -31,6 +31,7 @@ paths.forEach((i) => {
         maxAgeSeconds: 60 * 60 * 24 * 365,
       },
       browser: false,
+      key: new CustomCacheKey().excludeAllQueryParameters(),
     })
     renderWithApp({
       transformResponse: async (res, req) => {

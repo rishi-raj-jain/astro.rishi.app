@@ -43,14 +43,14 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
       }
     </style>
   </head>
-  <body class="bg-white dark:bg-black min-h-screen font-display">
+  <body class="min-h-screen bg-white font-display dark:bg-black">
     <Header />
     <main class="flex flex-col items-center text-black dark:text-gray-200">
-      <div class="flex w-full max-w-[90vw] lg:max-w-[75vw] flex-col py-10 sm:px-10">
+      <div class="flex w-full max-w-[90vw] flex-col py-10 sm:px-10 lg:max-w-[75vw]">
         {valid && <slot />}
       </div>
     </main>
-    <script is:inline>
+    <script defer is:inline>
       // Add listener to sessionStorage events
       const themeChangeListener = () => {
         let sessionTheme = sessionStorage.getItem('theme')
@@ -62,8 +62,11 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
       }
       // Check the theme preferred in the window acc. to the zone
       const theme = (() => {
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+          get: (searchParams, prop) => searchParams.get(prop),
+        })
         if (typeof window !== 'undefined') {
-          return window.sessionStorage.getItem('theme') || 'light'
+          return params.mode ? params.mode : window.sessionStorage.getItem('theme') || 'light'
         }
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
           return 'dark'
@@ -120,18 +123,20 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
       } else {
         console.error('Service workers are not supported.')
       }
-      const attrs = ['href', 'src', 'srcset', 'data-src']
-      attrs.forEach((j) => {
-        document.querySelectorAll(`[${j}^="/"]`).forEach((i) => {
-          let sc = document.createElement('link')
-          sc.setAttribute('rel', 'prefetch')
-          sc.setAttribute('href', i.getAttribute(j))
-          document.head.appendChild(sc)
+      addEventListener('load', () => {
+        const attrs = ['href', 'src', 'srcset', 'data-src']
+
+        attrs.forEach((j) => {
+          document.querySelectorAll(`[${j}^="/"]`).forEach((i) => {
+            let sc = document.createElement('link')
+            sc.setAttribute('rel', 'prefetch')
+            sc.setAttribute('href', i.getAttribute(j))
+            document.head.appendChild(sc)
+          })
         })
       })
     </script>
     <link media={linkMedia} rel="stylesheet" href="/css/dark.css" onload={linkOnload} />
-
 
   </body>
 </html>

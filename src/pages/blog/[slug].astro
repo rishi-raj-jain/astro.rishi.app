@@ -37,7 +37,7 @@ try {
       </div>
       <div class="mt-7 h-[1px] w-full bg-gray-200"></div>
       {showAd && <div class="before-article mt-2 h-[90px] w-full max-w-full overflow-y-scroll py-2" />}
-      <article class="flex flex-col items-center prose mt-10 max-w-none text-sm dark:prose-light" set:html={data.post.content.long_text} />
+      <article class="prose mt-10 flex max-w-none flex-col items-center text-sm dark:prose-light" set:html={data.post.content.long_text} />
       <Comments client:visible data={data} />
       <MorePosts morePosts={morePosts} />
     </div>
