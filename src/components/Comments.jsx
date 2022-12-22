@@ -39,14 +39,25 @@ export const LoadComments = ({ comments }) => {
     comments &&
     comments
       .sort((a, b) => (new Number(a.time) > new Number(b.time) ? -1 : 1))
-      .map((item, index) => (
-        <div key={index} className="mt-5 flex w-full flex-col rounded border p-5 dark:border-gray-500">
-          <span className="text-lg font-medium text-gray-500 dark:text-gray-300">
-            {item.name} &middot; {new Date(1000 * item.time).toLocaleDateString()}
-          </span>
-          <span className="text-md mt-3 text-gray-500 dark:text-gray-300">{item.content}</span>
-        </div>
-      ))
+      .map((item, index) =>
+        item.loading ? (
+          <div key={index} className="mt-5 flex w-full flex-col rounded border p-5 dark:border-gray-500">
+            <span className="flex flex-row items-center gap-x-5 text-lg font-medium">
+              <span className="w-[50px] animate-pulse bg-gray-100 py-1"></span>
+              <span className="text-gray-500 dark:text-gray-300">&middot;</span>
+              <span className="w-[50px] animate-pulse bg-gray-100 py-1"></span>
+            </span>
+            <span className="text-md mt-3 h-[20px] w-full animate-pulse bg-gray-100 dark:bg-gray-300"></span>
+          </div>
+        ) : (
+          <div key={index} className="mt-5 flex w-full flex-col rounded border p-5 dark:border-gray-500">
+            <span className="text-lg font-medium text-gray-500 dark:text-gray-300">
+              {item.name} &middot; {new Date(1000 * item.time).toLocaleDateString()}
+            </span>
+            <span className="text-md mt-3 text-gray-500 dark:text-gray-300">{item.content}</span>
+          </div>
+        )
+      )
   )
 }
 
@@ -109,7 +120,10 @@ export default function Comments({ data }) {
       <WriteComment setComments={setComments} slug={data.post.slug} />
       <div className="mt-10 w-full border-t pt-10 dark:border-gray-500">
         <button
-          onClick={() => getComments(data.post.slug, setComments)}
+          onClick={() => {
+            setComments(new Array(3).fill(0).map((_) => ({ loading: true, time: new Date().getMilliseconds() })))
+            getComments(data.post.slug, setComments)
+          }}
           className="w-[200px] appearance-none rounded border py-2 px-5 text-center hover:bg-gray-100 dark:border-gray-500 dark:hover:bg-[#28282B]"
         >
           Load Comments
