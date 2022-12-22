@@ -28,7 +28,8 @@ paths.forEach((i) => {
     removeUpstreamResponseHeader('cache-control')
     cache({
       edge: {
-        maxAgeSeconds: 60 * 60 * 24 * 365,
+        maxAgeSeconds: 60,
+        staleWhileRevalidateSeconds: 60 * 60 * 24 * 365,
       },
       browser: false,
       key: new CustomCacheKey().excludeAllQueryParameters(),
