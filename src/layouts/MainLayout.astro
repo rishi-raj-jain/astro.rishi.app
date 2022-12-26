@@ -6,6 +6,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../config'
 const {
   content: { title = SITE_TITLE, description = SITE_DESCRIPTION },
   valid,
+  className = '',
 } = Astro.props
 
 const loadDarkOnPriority = Astro.url.pathname.includes('/blog/')
@@ -16,7 +17,6 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
-    <meta name="google-site-verification" content="hgb7sEPSlo0We6rT4UtpV04_qCFTryuwkcSEdtmAxr8" />
     <noscript>
       <style>
         .hide-if-no-javascript {
@@ -25,6 +25,9 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
       </style>
     </noscript>
     <style is:global>
+      * {
+        -webkit-tap-highlight-color: transparent;
+      }
       .heading_hover_hash:hover {
         cursor: pointer;
         text-decoration: underline;
@@ -44,7 +47,7 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
       }
     </style>
   </head>
-  <body class="min-h-screen bg-white font-display dark:bg-black">
+  <body class={`min-h-screen bg-white font-display dark:bg-black ${className}`}>
     <Header />
     <main class="flex flex-col items-center text-black dark:text-gray-200">
       <div class="flex w-full max-w-[90vw] flex-col py-10 sm:px-10 lg:max-w-[75vw]">

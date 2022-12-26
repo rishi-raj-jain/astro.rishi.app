@@ -15,7 +15,7 @@ try {
 const aboutLine = new RichTextResolver().render(data)
 ---
 
-<MainLayout valid={data} content={{ title: 'Home - Rishi Raj Jain' }}>
+<MainLayout className="overflow-hidden" valid={data} content={{ title: 'Home - Rishi Raj Jain' }}>
   <div class="md:justify-auto flex min-h-[90vh] flex-col justify-center md:flex-row md:items-center">
     <div class="flex w-full flex-col items-center justify-center md:w-1/2 md:items-start">
       <div class="filter md:hidden">
