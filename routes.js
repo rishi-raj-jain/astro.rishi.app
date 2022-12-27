@@ -2,6 +2,7 @@
 // You should commit this file to source control.
 
 import { load } from 'cheerio'
+import fetch from 'node-fetch'
 import { astroRoutes } from '@edgio/astro'
 import { minifyOptions } from 'minifyOptions'
 import { getAllPostsForHome } from '@/src/api'
@@ -20,6 +21,70 @@ router.match('/api/:path*', ({ setResponseHeader }) => {
 router.prerender(async () => {
   const blogs = await getAllPostsForHome()
   const nonDynamicPaths = ['/', '/cv', '/about', '/blogs', '/storyblok']
+  for (const dynamicPath of nonDynamicPaths) {
+    fetch('https://api.speedvitals.com/v1/ttfb-tests', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        url: `https://rishi.app/${dynamicPath}`,
+        region: 'asia',
+      }),
+    })
+    fetch('https://api.speedvitals.com/v1/ttfb-tests', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        url: `https://rishi.app/${dynamicPath}`,
+        region: 'europe',
+      }),
+    })
+    fetch('https://api.speedvitals.com/v1/ttfb-tests', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        url: `https://rishi.app/${dynamicPath}`,
+        region: 'america',
+      }),
+    })
+  }
+  for (const blog of blogs) {
+    fetch('https://api.speedvitals.com/v1/ttfb-tests', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        url: `https://rishi.app/blog/${blog.slug}`,
+        region: 'asia',
+      }),
+    })
+    fetch('https://api.speedvitals.com/v1/ttfb-tests', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        url: `https://rishi.app/blog/${blog.slug}`,
+        region: 'europe',
+      }),
+    })
+    fetch('https://api.speedvitals.com/v1/ttfb-tests', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        url: `https://rishi.app/blog/${blog.slug}`,
+        region: 'america',
+      }),
+    })
+  }
   return [...blogs.map((i) => ({ path: `/blog/${i.slug}` })), ...nonDynamicPaths.map((i) => ({ path: i }))]
 })
 
