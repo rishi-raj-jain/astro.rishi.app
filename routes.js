@@ -21,25 +21,25 @@ router.match('/api/:path*', ({ setResponseHeader }) => {
 router.prerender(async () => {
   const blogs = await getAllPostsForHome()
   const nonDynamicPaths = ['/', '/cv', '/about', '/blogs', '/storyblok']
-  const speedTestTTFB = async (path) => {
-    let regions = ['asia', 'america', 'europe']
-    for (const region of regions) {
-      const resp = await fetch('https://api.speedvitals.com/v1/ttfb-tests', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-API-KEY': process.env.SPEED_VITALS_KEY },
-        body: JSON.stringify({ url: `https://rishi.app${path}`, region }),
-      })
-      if (resp.ok) {
-        const data = await resp.json()
-        console.log(JSON.stringify(data))
-      }
+  const paths = [...blogs.map((i) => ({ path: `/blog/${i.slug}` })), ...nonDynamicPaths.map((i) => ({ path: i }))]
+  if (paths.length > 0 && process.env.DOMAIN_URL && process.env.SPEED_VITALS_KEY) {
+    const resp = await fetch('https://ttfb-booster.fly.dev', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        paths,
+        baseURL: process.env.DOMAIN_URL,
+        SPEED_VITALS_KEY: process.env.SPEED_VITALS_KEY,
+      }),
+    })
+    if (resp.ok) {
+      const data = await resp.json()
+      console.log(JSON.stringify({ data }))
     }
   }
-  const urlsToPrerender = [...blogs.map((i) => ({ path: `/blog/${i.slug}` })), ...nonDynamicPaths.map((i) => ({ path: i }))]
-  for (const url of urlsToPrerender) {
-    await speedTestTTFB(url.path)
-  }
-  return urlsToPrerender
+  return paths
 })
 
 paths.forEach((i) => {
