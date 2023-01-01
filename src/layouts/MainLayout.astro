@@ -4,7 +4,7 @@ import Header from '@/components/Header.astro'
 import { SITE_DESCRIPTION, SITE_TITLE } from '../config'
 
 const {
-  content: { title = SITE_TITLE, description = SITE_DESCRIPTION },
+  content: { title = SITE_TITLE, description = SITE_DESCRIPTION, image = '/static/social-media-card.jpg' },
   valid,
   className = '',
 } = Astro.props
@@ -16,7 +16,7 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} image={image} />
     <noscript>
       <style>
         .hide-if-no-javascript {
@@ -141,6 +141,5 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
       })
     </script>
     <link media={linkMedia} rel="stylesheet" href="/css/dark.css" onload={linkOnload} />
-
   </body>
 </html>
