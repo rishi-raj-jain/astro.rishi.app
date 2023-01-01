@@ -113,16 +113,16 @@ export const WriteComment = ({ slug, setComments }) => {
   )
 }
 
-export default function Comments({ data }) {
+export default function Comments({ slug }) {
   const [comments, setComments] = useState([])
   return (
     <>
-      <WriteComment setComments={setComments} slug={data.post.slug} />
+      <WriteComment setComments={setComments} slug={slug} />
       <div className="mt-10 w-full border-t pt-10 dark:border-gray-500">
         <button
           onClick={() => {
             setComments(new Array(3).fill(0).map((_) => ({ loading: true, time: new Date().getMilliseconds() })))
-            getComments(data.post.slug, setComments)
+            getComments(slug, setComments)
           }}
           className="w-[200px] appearance-none rounded border py-2 px-5 text-center hover:bg-gray-100 dark:border-gray-500 dark:hover:bg-[#28282B]"
         >
