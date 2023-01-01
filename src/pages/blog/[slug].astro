@@ -25,9 +25,25 @@ try {
 } catch (e) {
   console.log(e)
 }
+
+const ogImageMeta = {
+  site: 'https://rishi-raj-jain-html-og-image-default.layer0-limelight.link',
+  path: '/api',
+  query: {
+    title: encodeURIComponent(data.post.content.title),
+    image: encodeURIComponent(data.post.content.image),
+  },
+}
+
+const ogImage = new URL(
+  `${ogImageMeta.path}?${Object.keys(ogImageMeta.query)
+    .map((i) => `${i}=${ogImageMeta.query[i]}`)
+    .join('&')}`,
+  ogImageMeta.site
+)
 ---
 
-<MainLayout valid={data} content={{ title: `${data.post.content.title} - ${data.post.content.author.name}` }}>
+<MainLayout valid={data} content={{ title: `${data.post.content.title} - ${data.post.content.author.name}`, image: ogImage.href }}>
   <div class="flex w-full flex-col items-center">
     <div class="w-full md:max-w-2xl">
       <div class="flex w-full flex-col items-center">
@@ -38,7 +54,7 @@ try {
       <div class="mt-7 h-[1px] w-full bg-gray-200"></div>
       {showAd && <div class="before-article mt-2 h-[90px] w-full max-w-full overflow-y-scroll py-2" />}
       <article class="prose mt-10 flex max-w-none flex-col items-center text-sm dark:prose-light" set:html={data.post.content.long_text} />
-      <Comments client:visible data={data} />
+      <Comments client:visible slug={data.post.slug} />
       <MorePosts morePosts={morePosts} />
     </div>
   </div>
