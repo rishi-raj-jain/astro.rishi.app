@@ -1,7 +1,11 @@
 ---
+import GA from '@/components/GA.astro'
 import BaseHead from '@/components/SEO.astro'
 import Header from '@/components/Header.astro'
+
 import { SITE_DESCRIPTION, SITE_TITLE } from '../config'
+
+const showGA = Astro.url.origin.includes('://rishi.app')
 
 const {
   content: { title = SITE_TITLE, description = SITE_DESCRIPTION, image = '/static/social-media-card.jpg' },
@@ -141,5 +145,6 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
       })
     </script>
     <link media={linkMedia} rel="stylesheet" href="/css/dark.css" onload={linkOnload} />
+    {showGA && <GA /> }
   </body>
 </html>
