@@ -1,0 +1,77 @@
+---
+import { format } from 'date-fns'
+import markdownToHtml from '../markdown'
+import TweetComponent from '@/components/Tweet.astro'
+import { getAuthorInfo, getMedia, getTweet } from '../twitter'
+
+const { text, id, author_id, created_at, attachments, tweets, referenced_tweets } = Astro.props
+
+let media, author, authorUrl, tweetUrl, quoteTweet
+
+const createdAt = new Date(created_at)
+
+try {
+  author = getAuthorInfo(tweets, author_id)
+  authorUrl = `https://twitter.com/${author.username}`
+  tweetUrl = `https://twitter.com/${author.username}/status/${id}`
+} catch (e) {}
+
+try {
+  media = getMedia(tweets, attachments.media_keys[0])
+} catch (e) {}
+
+let formattedText = text.replace(/&amp;/g, '&')
+let tempText = '' + formattedText
+
+const shortLinks = formattedText.match(/https:\/\/t\.co\/[a-zA-Z0-9]{0,10}/g)
+
+shortLinks.forEach((i, _) => {
+  if (_ !== shortLinks.length - 1) {
+    tempText = tempText.replace(i, `[${i}](${i})`)
+  } else {
+    tempText = tempText.replace(i, ``)
+  }
+})
+formattedText = '' + tempText
+
+if (referenced_tweets && referenced_tweets.length > 0 && referenced_tweets[0]) {
+  quoteTweet = await getTweet(referenced_tweets[0].id)
+}
+---
+
+<div class="tweet my-4 w-full rounded border border-gray-200 bg-white px-6 py-4 dark:border-gray-600 dark:bg-black">
+  <div class="flex items-center">
+    <a class="flex h-12 w-12" href={authorUrl} target="_blank" rel="noopener noreferrer">
+      <img alt={author.username} height={48} width={48} src={author.profile_image_url} class="rounded-full" />
+    </a>
+    <a href={authorUrl} target="_blank" rel="noopener noreferrer" class="author ml-4 flex flex-col !no-underline">
+      <span class="flex items-center font-bold leading-5 !text-gray-900 dark:!text-gray-100" title={author.name}>
+        {author.name}
+      </span>
+      <span class="!text-gray-500" title={`@${author.username}`}>
+        @{author.username}
+      </span>
+    </a>
+    <a class="ml-auto" href={tweetUrl} target="_blank" rel="noopener noreferrer">
+      <svg viewBox="328 355 335 276" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M 630, 425    A 195, 195 0 0 1 331, 600    A 142, 142 0 0 0 428, 570    A  70,  70 0 0 1 370, 523    A  70,  70 0 0 0 401, 521    A  70,  70 0 0 1 344, 455    A  70,  70 0 0 0 372, 460    A  70,  70 0 0 1 354, 370    A 195, 195 0 0 0 495, 442    A  67,  67 0 0 1 611, 380    A 117, 117 0 0 0 654, 363    A  65,  65 0 0 1 623, 401    A 117, 117 0 0 0 662, 390    A  65,  65 0 0 1 630, 425    Z"
+          style={{ fill: '#3BA9EE' }}></path>
+      </svg>
+    </a>
+  </div>
+  <div set:html={await markdownToHtml(formattedText, true)} class="mt-4 mb-1 whitespace-pre-wrap !text-gray-700 dark:!text-gray-200" />
+  {
+    media && (
+      <div class={'my-2 inline-grid grid-cols-1 gap-x-2 gap-y-2'}>
+        <img loading="lazy" src={media.url} class="h-auto w-full rounded" />
+      </div>
+    )
+  }
+  {quoteTweet && quoteTweet['data'] ? quoteTweet['data'].map((qTweet) => <TweetComponent tweets={quoteTweet} {...qTweet} />) : null}
+  <a class="text-sm !text-gray-500 hover:!underline" href={tweetUrl} target="_blank" rel="noopener noreferrer">
+    <time title={`Time Posted: ${createdAt.toUTCString()}`}>
+      {format(createdAt, 'h:mm a - MMM d, y')}
+    </time>
+  </a>
+</div>

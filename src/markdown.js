@@ -24,7 +24,19 @@ const addCopyToCode = (text) => {
   return $('body').html()
 }
 
-export default async function markdownToHtml(markdown) {
-  const result = await unified().use(remarkParse).use(customHeaders).use(prism).use(remarkRehype).use(rehypeStringify).process(markdown)
-  return addCopyToCode(result.toString())
+const highlightHref = (text) => {
+  const $ = load(`<html><head></head><body>${text}</body></html>`)
+  $('a').each((_, i) => {
+    $(i).addClass('text-blue-600')
+  })
+  return $('body').html()
+}
+
+export default async function markdownToHtml(markdown, highlightHrefs = false) {
+  let result = await unified().use(remarkParse).use(customHeaders).use(prism).use(remarkRehype).use(rehypeStringify).process(markdown)
+  result = addCopyToCode(result.toString())
+  if (highlightHrefs) {
+    result = highlightHref(result)
+  }
+  return result
 }

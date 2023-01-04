@@ -9,14 +9,9 @@ import { getAllPostsForHome } from '@/src/api'
 import esImport from '@edgio/core/utils/esImport'
 import { CustomCacheKey, Router } from '@edgio/core'
 
-const paths = ['/', '/cv', '/blogs', '/storyblok', '/about', '/blog/:path*', '/showcase/:path*']
+const paths = ['/', '/cv', '/blogs', '/storyblok', '/about', '/blog/:path*', '/showcase/aug21-jul22']
 
 const router = new Router({ indexPermalink: true })
-
-// Disable cross origin fetch of /api route
-router.match('/api/:path*', ({ setResponseHeader }) => {
-  setResponseHeader('Access-Control-Allow-Origin', 'https://rishi.app')
-})
 
 router.prerender(async () => {
   const blogs = await getAllPostsForHome()
@@ -42,6 +37,11 @@ router.prerender(async () => {
   return paths
 })
 
+// Disable cross origin fetch of /api route
+router.match('/api/:path*', ({ setResponseHeader }) => {
+  setResponseHeader('Access-Control-Allow-Origin', 'https://rishi.app')
+})
+
 paths.forEach((i) => {
   router.match(i, ({ cache, removeUpstreamResponseHeader, renderWithApp }) => {
     removeUpstreamResponseHeader('cache-control')
@@ -55,9 +55,17 @@ paths.forEach((i) => {
     })
     renderWithApp({
       transformResponse: async (res, req) => {
-        const $ = load(res.body)
-        const { minify } = await esImport('html-minifier')
-        res.body = minify($.html(), minifyOptions)
+        let statusCodeOriginal = res.statusCode
+        try {
+          if (res.getHeader('content-type').includes('html')) {
+            const $ = load(res.body)
+            const { minify } = await esImport('html-minifier')
+            res.body = minify($.html(), minifyOptions)
+          }
+        } catch (e) {
+          console.log(e.message || e.toString())
+          res.statusCode = statusCodeOriginal
+        }
       },
     })
   })
