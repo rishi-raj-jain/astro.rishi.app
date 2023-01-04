@@ -9,7 +9,7 @@ import { getAllPostsForHome } from '@/src/api'
 import esImport from '@edgio/core/utils/esImport'
 import { CustomCacheKey, Router } from '@edgio/core'
 
-const paths = ['/', '/cv', '/blogs', '/storyblok', '/about', '/blog/:path*']
+const paths = ['/', '/cv', '/blogs', '/storyblok', '/about', '/blog/:path*', '/showcase/:path*']
 
 const router = new Router({ indexPermalink: true })
 
