@@ -9,7 +9,7 @@ import { getAllPostsForHome } from '@/src/api'
 import esImport from '@edgio/core/utils/esImport'
 import { CustomCacheKey, Router } from '@edgio/core'
 
-const paths = ['/', '/cv', '/blogs', '/storyblok', '/about', '/blog/:path*', '/showcase/aug21-jul22']
+const paths = ['/', '/cv', '/blogs', '/storyblok', '/about', '/blog/:path', '/showcase/:path']
 
 const router = new Router({ indexPermalink: true })
 
@@ -35,6 +35,11 @@ router.prerender(async () => {
     }
   }
   return paths
+})
+
+// Route requests requesting showcase assets to showcase prefix
+router.match('/showcase/:path.:ext(js|mjs|css|png|ico|svg|jpg|jpeg|gif|ttf|woff|otf)', ({ serveStatic }) => {
+  serveStatic('dist/client/showcase/:path.:ext')
 })
 
 // Disable cross origin fetch of /api route
