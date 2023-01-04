@@ -115,11 +115,11 @@ const tweets = await getTweet(['1505926473261064193'])
     </div>
   </div>
   <div class="flex w-full flex-col items-center justify-center">
-    <h1 class="mt-48 text-center text-4xl font-bold text-gray-400 sm:text-6xl">
+    <h2 class="mt-48 text-center text-4xl font-bold text-gray-400 sm:text-6xl">
       Still need a <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text font-extrabold text-transparent"
         >testimonial</span
       >?
-    </h1>
+    </h2>
     <div class="flex w-full flex-col items-center sm:flex-row">
       <img src="/showcase/Jeff Patzer.png" loading="lazy" class="mt-12 w-[200px]" />
       <div class="mt-12 flex w-full flex-col px-10 text-xl md:text-2xl">
@@ -228,5 +228,25 @@ const tweets = await getTweet(['1505926473261064193'])
     <div class="mt-12 flex w-full flex-col">
       {tweets && tweets['data'] && tweets['data'].map((tweet) => <Tweet tweets={tweets} {...tweet} />)}
     </div>
+  </div>
+  <div class="flex w-full flex-col items-start justify-center">
+    <h2 class="mt-48 text-4xl font-bold text-gray-400 sm:text-6xl">
+      Created <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-transparent">60+ repositories</span> that showcase
+      Layer0 with
+    </h2>
+    <div class="mt-8 w-full rounded border border-gray-600 bg-black p-5">
+      <img src="/showcase/Frameworks.svg" class="w-full" />
+    </div>
+  </div>
+  <div class="flex w-full flex-col items-center justify-center">
+    <h2 class="mt-48 text-center text-4xl font-bold text-gray-400 sm:text-6xl">
+      <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text font-extrabold text-transparent">
+        ~ Wall Of Appreciation ~
+      </span>
+    </h2>
+    <img loading="lazy" src="/showcase/Mail Praise.png" class="mt-8 w-full rounded-t" />
+    <img loading="lazy" src="/showcase/Vercel Collection.png" class="w-full" />
+    <img loading="lazy" src="/showcase/Vercel's Praise.png" class="w-full" />
+    <img loading="lazy" src="/showcase/Hattip.png" class="w-full rounded-b" />
   </div>
 </MainLayout>
