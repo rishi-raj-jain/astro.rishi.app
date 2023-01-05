@@ -4,9 +4,8 @@ const { post } = Astro.props
 
 <div class="flex flex-row items-center space-x-3">
   <img
-    width={30}
-    height={30}
     loading="lazy"
+    class="h-[30px]"
     alt={post.content.author.name}
     title={post.content.author.name}
     src={post.content.author.content.picture.filename}

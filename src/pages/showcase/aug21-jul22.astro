@@ -8,8 +8,8 @@ const tweets = await getTweet(['1505926473261064193'])
 
 <MainLayout valid={true} content={{ title: "A look back at Rishi's contribution to Edgio from Aug. 21 to Jul. 22 - Rishi Raj Jain" }}>
   <div class="flex w-full flex-col items-center justify-center text-center">
-    <div class="mt-48 flex flex-row items-center gap-x-5">
-      <img src="https://rishi.app/static/favicon-image.jpg" class="h-[48px] w-[48px] rounded-full grayscale" />
+    <div class="mt-36 sm:mt-48 flex flex-row items-center gap-x-5">
+      <img alt="Rishi Raj Jain" src="https://rishi.app/static/favicon-image.jpg" class="h-[48px] rounded-full grayscale" />
       <span class="text-3xl font-semibold text-gray-400">Rishi Raj Jain</span>
     </div>
     <div class="mt-12 flex w-full flex-col items-center">
@@ -57,10 +57,20 @@ const tweets = await getTweet(['1505926473261064193'])
       it to be <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-transparent">shipped with Edgio</span>.
     </h2>
     <div class="mt-12 grid grid-cols-1 items-stretch gap-10 sm:grid-cols-2 md:grid-cols-4">
-      <img class="w-full rounded border border-gray-400 bg-black object-contain px-3" src="/showcase/Nuxt3 - Logo.png" loading="lazy" />
-      <img class="w-full rounded border border-gray-400 bg-white object-contain px-3" src="/showcase/Oxygen - Logo.svg" loading="lazy" />
-      <img class="w-full rounded object-contain px-3" src="/showcase/Swell - Logo.png" loading="lazy" />
-      <img class="w-full rounded object-contain px-3" src="/showcase/Remix - Logo.png" loading="lazy" />
+      <img
+        loading="lazy"
+        alt="Nuxt3 Logo"
+        src="/showcase/Nuxt3 - Logo.png"
+        class="w-full rounded border border-gray-400 bg-black object-contain px-3"
+      />
+      <img
+        loading="lazy"
+        alt="Oxygen Logo"
+        src="/showcase/Oxygen - Logo.svg"
+        class="w-full rounded border border-gray-400 bg-white object-contain px-3"
+      />
+      <img alt="Swell Logo" class="w-full rounded object-contain px-3" src="/showcase/Swell - Logo.png" loading="lazy" />
+      <img alt="Remix Logo" class="w-full rounded object-contain px-3" src="/showcase/Remix - Logo.png" loading="lazy" />
     </div>
   </div>
   <div class="flex w-full flex-col items-start justify-center">
@@ -69,7 +79,7 @@ const tweets = await getTweet(['1505926473261064193'])
       <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-transparent"> deployment button</span>
       to ship it with one click.
     </h2>
-    <img src="/showcase/Deploy To Layer0.png" class="mt-12 h-[64px]" loading="lazy" />
+    <img alt="Deploy To Layer0 Button" src="/showcase/Deploy To Layer0.png" class="mt-12 h-[64px]" loading="lazy" />
     <div class="mt-12 flex max-w-[512px] flex-row items-center gap-x-8 rounded border border-gray-400 p-5">
       <span class="w-[150px] bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-6xl font-bold text-transparent">#27</span>
       <div class="flex flex-col items-start">
@@ -99,7 +109,7 @@ const tweets = await getTweet(['1505926473261064193'])
           <a class="border-b border-gray-400 text-2xl" href="https://github.com/edgio-docs/og-image" rel="noreferrer"> edgio-docs/og-image</a>
         </div>
         <div class="mt-12 flex flex-row items-center gap-x-5">
-          <img class="h-[32px]" src="/showcase/DEV - Logo.png" loading="lazy" />
+          <img alt="Dev.To Logo" class="h-[32px]" src="/showcase/DEV - Logo.png" loading="lazy" />
           <a
             rel="noreferrer"
             class="border-b border-gray-400 text-2xl"
@@ -110,7 +120,12 @@ const tweets = await getTweet(['1505926473261064193'])
         </div>
       </div>
       <div class="mt-12 w-full md:w-1/2">
-        <img loading="lazy" src="https://layer0-docs-og-image-default.layer0.link/api?title=Rich Preview" class="w-full rounded border" />
+        <img
+          loading="lazy"
+          alt="OG Image Preview"
+          class="w-full rounded border"
+          src="https://layer0-docs-og-image-default.layer0.link/api?title=Rich Preview"
+        />
       </div>
     </div>
   </div>
@@ -121,7 +136,7 @@ const tweets = await getTweet(['1505926473261064193'])
       >?
     </h2>
     <div class="flex w-full flex-col items-center sm:flex-row">
-      <img src="/showcase/Jeff Patzer.png" loading="lazy" class="mt-12 w-[200px]" />
+      <img alt="Jeff Patzer" src="/showcase/Jeff Patzer.png" loading="lazy" class="mt-12 w-[200px]" />
       <div class="mt-12 flex w-full flex-col px-10 text-xl md:text-2xl">
         <span>
           “High5 to @Rishi Raj Jain for showing amazing <span
@@ -144,8 +159,8 @@ const tweets = await getTweet(['1505926473261064193'])
       > on forums!
     </h2>
     <div class="grid w-full grid-cols-1 items-stretch gap-5">
-      <img loading="lazy" src="/showcase/Forum - 1.png" class="mt-8 h-full max-w-full rounded object-contain" />
-      <img loading="lazy" src="/showcase/Forum - 2.png" class="mt-8 h-full max-w-full rounded object-contain" />
+      <img alt="Forum Example - 1" loading="lazy" src="/showcase/Forum - 1.png" class="mt-8 h-full max-w-full rounded object-contain" />
+      <img alt="Forum Example - 2" loading="lazy" src="/showcase/Forum - 2.png" class="mt-8 h-full max-w-full rounded object-contain" />
     </div>
   </div>
   <div class="flex w-full flex-col items-start justify-center">
@@ -164,7 +179,7 @@ const tweets = await getTweet(['1505926473261064193'])
     >
       35K+ Impresssions
     </span>
-    <img loading="lazy" src="/showcase/Blog - Impression.png" class="mt-12 w-full rounded object-contain" />
+    <img alt="Blogs and Tweets Impressions" loading="lazy" src="/showcase/Blog - Impression.png" class="mt-12 w-full rounded object-contain" />
   </div>
   <div class="flex w-full flex-col items-start justify-center">
     <h2 class="mt-48 text-4xl font-bold text-gray-400 sm:text-6xl">
@@ -172,17 +187,22 @@ const tweets = await getTweet(['1505926473261064193'])
         >him.
       </span>
     </h2>
-    <img loading="lazy" src="/showcase/Self - Starter.png" class="mt-12 w-full rounded object-contain" />
+    <img alt="Self Starter" loading="lazy" src="/showcase/Self - Starter.png" class="mt-12 w-full rounded object-contain" />
   </div>
   <div class="flex w-full flex-col items-center justify-center text-center">
     <h2 class="mt-48 max-w-sm text-4xl font-bold text-gray-400 sm:max-w-xl sm:text-6xl">
       He collaborated for <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-transparent">many-way</span> growth.
     </h2>
-    <img loading="lazy" src="/showcase/Many - Way.png" class="mt-12 w-full rounded object-contain" />
-    <img loading="lazy" class="mt-12 w-full rounded border md:w-[80%]" src="/showcase/Search - Storyblok.png" />
+    <img alt="Many Way Growth" loading="lazy" src="/showcase/Many - Way.png" class="mt-12 w-full rounded object-contain" />
+    <img alt="Storyblok Rishi Raj Jain" loading="lazy" class="mt-12 w-full rounded border md:w-[80%]" src="/showcase/Search - Storyblok.png" />
     <div class="flex w-full flex-col items-center gap-x-5 sm:flex-row">
-      <img loading="lazy" class="mt-12 w-full border sm:w-1/2" src="/showcase/Storyblok CS Rishi Raj Jain.png" />
-      <img loading="lazy" class="mt-12 w-full border sm:w-1/2" src="/showcase/Sanity Rishi Raj Jain.png" />
+      <img
+        loading="lazy"
+        class="mt-12 w-full border sm:w-1/2"
+        alt="Storyblok Case Study Rishi Raj Jain"
+        src="/showcase/Storyblok CS Rishi Raj Jain.png"
+      />
+      <img alt="Sanity Case Study Rishi Raj Jain" loading="lazy" class="mt-12 w-full border sm:w-1/2" src="/showcase/Sanity Rishi Raj Jain.png" />
     </div>
   </div>
   <div class="flex w-full flex-col items-start justify-center">
@@ -194,7 +214,7 @@ const tweets = await getTweet(['1505926473261064193'])
     <h2 class="mt-24 text-4xl font-bold text-gray-400">
       1st Session: <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-transparent">Dynamically</span> Static Blogs
     </h2>
-    <img src="/showcase/Dynamically Static Blogs.png" class="mt-12 w-full rounded" loading="lazy" />
+    <img alt="Dynamically Static Blogs" src="/showcase/Dynamically Static Blogs.png" class="mt-12 w-full rounded" loading="lazy" />
     <span class="mt-5 text-2xl"
       >Talked about: <span class="font-bold">Next.js</span>, <span class="font-bold">Layer0</span> and <span class="font-bold">Storyblok</span>
     </span>
@@ -204,7 +224,7 @@ const tweets = await getTweet(['1505926473261064193'])
       1st Talk: <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-transparent">Dynamically</span> Static Blogs
     </h2>
     <a class="mt-12" href="https://youtu.be/6U08V187cpc?t=5173" rel="noreferrer">
-      <img src="/showcase/First Talk.png" class="w-full rounded" loading="lazy" />
+      <img alt="First Talk" src="/showcase/First Talk.png" class="w-full rounded" loading="lazy" />
     </a>
     <span class="mt-5 text-2xl"
       >Talked about: <span class="font-bold">Next.js</span>, <span class="font-bold">Layer0</span> and <span class="font-bold">Storyblok</span>
@@ -215,7 +235,7 @@ const tweets = await getTweet(['1505926473261064193'])
       1st Conference: <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-transparent">ISG</span> with Nuxt(2)
     </h2>
     <a class="mt-12" href="https://youtu.be/miMm7qGMqLw?t=27" rel="noreferrer">
-      <img src="/showcase/His First Conference!.png" class="w-full rounded" loading="lazy" />
+      <img alt="First Conference" src="/showcase/His First Conference!.png" class="w-full rounded" loading="lazy" />
     </a>
     <span class="mt-5 text-2xl"
       >Talked about: <span class="font-bold">ISG</span> with <span class="font-bold">Nuxt(2)</span> and <span class="font-bold">Layer0</span>
@@ -235,7 +255,7 @@ const tweets = await getTweet(['1505926473261064193'])
       Layer0 with
     </h2>
     <div class="mt-8 w-full rounded border border-gray-600 bg-black p-5">
-      <img src="/showcase/Frameworks.svg" class="w-full" />
+      <img alt="Frameworks Collection" src="/showcase/Frameworks.svg" class="w-full" />
     </div>
   </div>
   <div class="flex w-full flex-col items-center justify-center">
@@ -244,9 +264,9 @@ const tweets = await getTweet(['1505926473261064193'])
         ~ Wall Of Appreciation ~
       </span>
     </h2>
-    <img loading="lazy" src="/showcase/Mail Praise.png" class="mt-8 w-full rounded-t" />
-    <img loading="lazy" src="/showcase/Vercel Collection.png" class="w-full" />
-    <img loading="lazy" src="/showcase/Vercel's Praise.png" class="w-full" />
-    <img loading="lazy" src="/showcase/Hattip.png" class="w-full rounded-b" />
+    <img alt="Praise on Mail" loading="lazy" src="/showcase/Mail Praise.png" class="mt-8 w-full rounded-t" />
+    <img alt="Vercel's Appreciation" loading="lazy" src="/showcase/Vercel Collection.png" class="w-full" />
+    <img alt="Vercel's Praise" loading="lazy" src="/showcase/Vercel's Praise.png" class="w-full" />
+    <img alt="Layer0's Inclusion" loading="lazy" src="/showcase/Hattip.png" class="w-full rounded-b" />
   </div>
 </MainLayout>
