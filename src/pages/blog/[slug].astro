@@ -1,5 +1,4 @@
 ---
-import Ad from '@/components/Ad.astro'
 import markdownToHtml from '../../markdown'
 import Comments from '@/components/Comments'
 import Author from '@/components/Author.astro'
@@ -36,7 +35,6 @@ try {
         <Author post={data.post} />
       </div>
       <div class="mt-7 h-[1px] w-full bg-gray-200"></div>
-      {showAd && <div class="before-article mt-2 h-[90px] w-full max-w-full overflow-y-scroll py-2" />}
       <article class="prose mt-10 flex max-w-none flex-col items-center text-sm dark:prose-light" set:html={data.post.content.long_text} />
       <Comments client:visible slug={data.post.slug} />
       <MorePosts morePosts={morePosts} />
@@ -96,5 +94,3 @@ try {
     )
   }
 </script>
-
-{showAd && <Ad />}
