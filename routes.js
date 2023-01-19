@@ -17,6 +17,9 @@ router.prerender(async () => {
   const blogs = await getAllPostsForHome()
   const nonDynamicPaths = ['/', '/cv', '/about', '/blogs', '/storyblok']
   const paths = [...blogs.map((i) => ({ path: `/blog/${i.slug}` })), ...nonDynamicPaths.map((i) => ({ path: i }))]
+  paths.forEach((i) => {
+    fetch(`${process.env.DOMAIN_URL}${i.path}`)
+  })
   if (paths.length > 0 && process.env.DOMAIN_URL && process.env.SPEED_VITALS_KEY) {
     const resp = await fetch('https://ttfb-booster.fly.dev', {
       method: 'POST',
