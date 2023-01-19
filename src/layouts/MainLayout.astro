@@ -128,18 +128,6 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
       } else {
         console.error('Service workers are not supported.')
       }
-      addEventListener('load', () => {
-        const attrs = ['href', 'src', 'srcset', 'data-src']
-
-        attrs.forEach((j) => {
-          document.querySelectorAll(`[${j}^="/"]`).forEach((i) => {
-            let sc = document.createElement('link')
-            sc.setAttribute('rel', 'prefetch')
-            sc.setAttribute('href', i.getAttribute(j))
-            document.head.appendChild(sc)
-          })
-        })
-      })
     </script>
     <link media={linkMedia} rel="stylesheet" href="/css/dark.css" onload={linkOnload} />
     {showGA && <GA />}
