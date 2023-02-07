@@ -1,12 +1,18 @@
 ---
+const { CONFIG_ID } = Astro.props
 ---
 
-<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-C9HDQHK5SE"></script>
-<script is:inline>
-  window.dataLayer = window.dataLayer || []
-  function gtag() {
-    dataLayer.push(arguments)
+<script defer is:inline define:vars={{ CONFIG_ID }}>
+  if (!CONFIG_ID) return
+  const script = document.createElement('script')
+  script.setAttribute('src', 'https://www.googletagmanager.com/gtag/js?id=' + CONFIG_ID)
+  script.onload = function handleScriptLoaded() {
+    window.dataLayer = window.dataLayer || []
+    function gtag() {
+      dataLayer.push(arguments)
+    }
+    gtag('js', new Date())
+    gtag('config', CONFIG_ID)
   }
-  gtag('js', new Date())
-  gtag('config', 'G-C9HDQHK5SE')
+  document.head.appendChild(script)
 </script>

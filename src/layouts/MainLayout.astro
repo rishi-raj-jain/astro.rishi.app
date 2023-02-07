@@ -29,6 +29,9 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
       </style>
     </noscript>
     <style is:inline>
+      html {
+        scroll-behavior: smooth;
+      }
       .heading_hover_hash:hover {
         cursor: pointer;
         text-decoration: underline;
@@ -130,6 +133,6 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
       }
     </script>
     <link media={linkMedia} rel="stylesheet" href="/css/dark.css" onload={linkOnload} />
-    {showGA && <GA />}
+    {showGA && <GA CONFIG_ID={'G-C9HDQHK5SE'} />}
   </body>
 </html>

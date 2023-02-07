@@ -8,6 +8,6 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
-  site: 'https://astro.rishi.app',
+  site: 'https://astro.rishi.app/',
   integrations: [tailwind(), react()],
 })
