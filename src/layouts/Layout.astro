@@ -96,7 +96,7 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
         }
         themeChangeListener()
       }
-      if (false && 'serviceWorker' in navigator) {
+      if ('serviceWorker' in navigator) {
         fetch('/version.json')
           .then((res) => res.json())
           .then((res) => {
