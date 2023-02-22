@@ -1,6 +1,3 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
-
 export const SITE_TITLE = 'Rishi Raj Jain - Software Engineer, Developer, Designer, Writer'
 
 export const SITE_DESCRIPTION = 'Currently, I am working as a Technical Customer Success Manager at Edgio.'

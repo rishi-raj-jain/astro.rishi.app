@@ -1,9 +1,9 @@
 ---
 import SearchBar from '@/components/SearchBar'
-import MainLayout from '@/layouts/MainLayout.astro'
+import Layout from '@/layouts/Layout.astro'
 import DateString from '@/components/DateString.astro'
-import { getAllPostsForHome, getRecommendedPosts, getTagline } from '../api'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
+import { getAllPostsForHome, getRecommendedPosts, getTagline } from '@/src/lib/api'
 
 let data = undefined
 
@@ -17,7 +17,7 @@ try {
 }
 ---
 
-<MainLayout valid={data} content={{ title: 'Blogs - Rishi Raj Jain' }}>
+<Layout valid={data} content={{ title: 'Blogs - Rishi Raj Jain' }}>
   <div class="flex flex-col">
     <h1 class="text-2xl font-bold sm:text-5xl">Blogs</h1>
     <h2
@@ -88,7 +88,7 @@ try {
       </div>
     </div>
   </div>
-</MainLayout>
+</Layout>
 
 <script is:inline defer>
   setTimeout(() => {

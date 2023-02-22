@@ -29,11 +29,11 @@ You can deploy your own hosted version of Rishi Raj Jain's Astro website.
 
 ## Tech Stack
 
-- [Astro](https://astro.build) – framework
-- [Storyblok](https://storyblok.com) – cms
-- [TailwindCSS](https://tailwindcss.com) – styling
-- [Edgio](https://edg.io) – hosting
+- [Astro](https://astro.build) – Framework
+- [Storyblok](https://storyblok.com) – CMS
+- [TailwindCSS](https://tailwindcss.com) – Styling
+- [Edgio](https://edg.io) – Hosting
 
 ## Author
 
-- Rishi Raj Jain ([@rishi*raj_jain*](https://twitter.com/rishi_raj_jain_))
+- Rishi Raj Jain ([@rishi_raj_jain_](https://twitter.com/rishi_raj_jain_))

@@ -1,5 +1,5 @@
-import admin from '../../firebase'
-import { validateEmail } from '../../operations'
+import admin from '@/src/lib/firebase/firebase'
+import { validateEmail } from '@/src/lib/operations'
 
 export async function get({ request }) {
   try {

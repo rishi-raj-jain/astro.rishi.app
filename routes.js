@@ -5,9 +5,10 @@ import { load } from 'cheerio'
 import fetch from 'node-fetch'
 import { astroRoutes } from '@edgio/astro'
 import { minifyOptions } from 'minifyOptions'
-import { getAllPostsForHome } from '@/src/api'
 import esImport from '@edgio/core/utils/esImport'
+import { getAllPostsForHome } from '@/src/lib/api'
 import { CustomCacheKey, Router } from '@edgio/core'
+import { isProductionBuild } from '@edgio/core/environment'
 
 const paths = ['/', '/cv', '/blogs', '/storyblok', '/about', '/blog/:path', '/showcase/:path']
 
@@ -42,7 +43,7 @@ router.prerender(async () => {
 
 // Route requests requesting showcase assets to showcase prefix
 router.match('/showcase/:path*.:ext(js|mjs|css|png|ico|svg|jpg|jpeg|gif|ttf|woff|otf)', ({ serveStatic }) => {
-  serveStatic('dist/client/showcase/:path.:ext')
+  serveStatic(isProductionBuild() ? 'dist/client/showcase/:path*.:ext' : 'public/showcase/:path*.:ext')
 })
 
 // Disable cross origin fetch of /api route

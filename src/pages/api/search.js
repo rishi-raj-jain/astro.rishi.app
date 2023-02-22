@@ -1,4 +1,4 @@
-import { getAllPostsForHome } from '@/src/api'
+import { getAllPostsForHome } from '@/src/lib/api'
 
 export async function post({ request }) {
   const allowedOrigins = ['://rishi.app', '://astro.rishi.app']

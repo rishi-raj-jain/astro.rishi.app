@@ -1,8 +1,8 @@
 ---
 import { format } from 'date-fns'
-import markdownToHtml from '../markdown'
+import markdownToHtml from '@/src/lib/markdown'
 import TweetComponent from '@/components/Tweet.astro'
-import { getAuthorInfo, getMedia, getTweet } from '../twitter'
+import { getAuthorInfo, getMedia, getTweet } from '@/src/lib/twitter'
 
 const { text, id, author_id, created_at, attachments, tweets, referenced_tweets } = Astro.props
 

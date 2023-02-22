@@ -1,7 +1,5 @@
 import fetch from 'node-fetch'
-import * as dotenv from 'dotenv'
-
-dotenv.config()
+import { GET_ENV } from './getENV'
 
 export const getAuthorInfo = (tweets, author_id) => {
   return tweets.includes.users.find((user) => user.id === author_id)
@@ -21,7 +19,7 @@ export const getTweet = async (id) => {
   })
   const response = await fetch(`https://api.twitter.com/2/tweets?${queryParams}`, {
     headers: {
-      Authorization: `Bearer ${process.env.TWITTER_API_KEY}`,
+      Authorization: `Bearer ${GET_ENV('TWITTER_API_KEY')}`,
     },
   })
   if (response.ok) {

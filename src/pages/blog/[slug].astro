@@ -1,9 +1,9 @@
 ---
-import markdownToHtml from '../../markdown'
+import Layout from '@/layouts/Layout.astro'
 import Comments from '@/components/Comments'
 import Author from '@/components/Author.astro'
-import { getOtherBlogs, getPost } from '../../api'
-import MainLayout from '@/layouts/MainLayout.astro'
+import markdownToHtml from '@/src/lib/markdown'
+import { getOtherBlogs, getPost } from '@/src/lib/api'
 import DateString from '@/components/DateString.astro'
 import MorePosts from '@/src/components/MorePosts.astro'
 
@@ -24,7 +24,7 @@ try {
 }
 ---
 
-<MainLayout valid={data} content={{ title: `${data.post.content.title} - ${data.post.content.author.name}`, image: data.post.content.image }}>
+<Layout valid={data} content={{ title: `${data.post.content.title} - ${data.post.content.author.name}`, image: data.post.content.image }}>
   <div class="flex w-full flex-col items-center">
     <div class="w-full md:max-w-2xl">
       <div class="flex w-full flex-col items-center">
@@ -38,7 +38,7 @@ try {
       <MorePosts morePosts={morePosts} />
     </div>
   </div>
-</MainLayout>
+</Layout>
 
 <script is:inline defer>
   document.querySelectorAll('h2, h3, h4, h5, h6').forEach((element) => {

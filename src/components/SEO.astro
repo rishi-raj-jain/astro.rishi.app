@@ -1,4 +1,6 @@
 ---
+import { GET_ENV } from '@/src/lib/getENV'
+
 const showSiteVerification = Astro.url.origin.includes('://rishi.app')
 const { title, description, image = '/static/social-media-card.jpg' } = Astro.props
 ---
@@ -22,11 +24,11 @@ const { title, description, image = '/static/social-media-card.jpg' } = Astro.pr
 <meta property="og:type" content="website" />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.site)} />
-<meta property="og:url" content={`${process.env.DOMAIN_URL}${Astro.url.pathname}`} />
+<meta property="og:url" content={`${GET_ENV('DOMAIN_URL')}${Astro.url.pathname}`} />
 
 <!-- Twitter -->
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:image" content={new URL(image, Astro.site)} />
-<meta property="twitter:url" content={`${process.env.DOMAIN_URL}${Astro.url.pathname}`} />
+<meta property="twitter:url" content={`${GET_ENV('DOMAIN_URL')}${Astro.url.pathname}`} />

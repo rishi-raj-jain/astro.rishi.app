@@ -1,14 +1,12 @@
 import fetch from 'node-fetch'
-import * as dotenv from 'dotenv'
-
-dotenv.config()
+import { GET_ENV } from './getENV'
 
 async function fetchAPI(query, { variables, preview } = {}) {
   const res = await fetch('https://gapi.storyblok.com/v1/api', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Token: process.env.STORYBLOK_API_KEY,
+      Token: GET_ENV('STORYBLOK_API_KEY'),
       Version: preview ? 'draft' : 'published',
     },
     body: JSON.stringify({

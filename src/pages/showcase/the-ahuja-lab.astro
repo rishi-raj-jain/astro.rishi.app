@@ -1,15 +1,18 @@
 ---
-import MainLayout from '@/src/layouts/MainLayout.astro'
+import Layout from '@/src/layouts/Layout.astro'
 ---
 
-<MainLayout valid={true} content={{ title: 'Ahuja Lab - Rishi Raj Jain' }}>
+<Layout valid={true} content={{ title: 'Ahuja Lab - Rishi Raj Jain' }}>
   <h2 class="text-xl font-medium text-gray-400">
     The Ahuja Lab - Meet the lab that uses a hybrid approach involving Artificial Intelligence and Molecular Biology
   </h2>
   <h1 class="mt-3 text-4xl font-bold bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-transparent sm:text-6xl">
     Drastically Improved Performance & Enhanced Online Presence
   </h1>
-  <a href="#letsbegin" class="max-w-max mt-8 py-2 px-4 rounded bg-white outline-none text-gray-600 border border-gray-600 hover:bg-black hover:text-gray-200 transition duration-300">
+  <a
+    href="#letsbegin"
+    class="max-w-max mt-8 py-2 px-4 rounded bg-white outline-none text-gray-600 border border-gray-600 hover:bg-black hover:text-gray-200 transition duration-300"
+  >
     Let's Begin &#8600;
   </a>
   <img id="letsbegin" src="/showcase/The Ahuja Lab/responsive.png" class="mt-16 w-full h-auto rounded" />
@@ -99,12 +102,26 @@ import MainLayout from '@/src/layouts/MainLayout.astro'
       Intramural Start-up grant from Indraprastha Institute of Information Technology-Delhi (IIIT-Delhi).
     </span>
   </div>
+  <span class="mt-12 text-2xl font-medium text-gray-400 sm:text-4xl">
+    Video Comparison Of <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-transparent">First Page Load(s)</span>
+    Performance
+  </span>
+  <video class="rounded-lg border mt-12 h-[440px]" controls preload="none" poster="/showcase/The Ahuja Lab/visual-improvement.png">
+    <source src="/showcase/The Ahuja Lab/comparison-old-new-ahuja-lab.mp4" type="video/mp4" />
+  </video>
+  <span class="mt-12 text-2xl font-medium text-gray-400 sm:text-4xl">
+    Before &rarr; <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-transparent">4.3s</span> to LCP
+  </span>
+  <img loading="lazy" src="/showcase/The Ahuja Lab/old-ahuja-lab-first-load-filmstrip.png" class="mt-12 w-full h-auto rounded border" />
+  <span class="mt-12 text-2xl font-medium text-gray-400 sm:text-4xl">
+    After &rarr; <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-transparent">1s</span> to LCP
+  </span>
+  <img loading="lazy" src="/showcase/The Ahuja Lab/new-ahuja-lab-first-load-filmstrip.png" class="mt-12 w-full h-auto rounded border" />
   <img loading="lazy" src="/showcase/The Ahuja Lab/preview.png" class="mt-24 w-full h-auto rounded" />
   <div class="mt-24 gap-y-8 grid grid-cols-1 sm:grid-cols-2">
-    <span class="text-2xl font-medium text-gray-400 sm:text-4xl max-w-[500px] leading-loose"
-      >Results that we delivered to <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-transparent"
-        >The Ahuja Lab</span
-      >
+    <span class="text-2xl font-medium text-gray-400 sm:text-4xl max-w-[500px] leading-loose">
+      Results that I delivered to
+      <span class="bg-gradient-to-br from-blue-400 via-pink-700 to-teal-600 bg-clip-text text-transparent"> The Ahuja Lab</span>
     </span>
     <span class="text-xl font-light text-black dark:text-white">
       The website loads almost instantly influencing SEO efforts positively. The website looks beautiful with seamless navigation.
@@ -165,4 +182,4 @@ import MainLayout from '@/src/layouts/MainLayout.astro'
       </div>
     </span>
   </div>
-</MainLayout>
+</Layout>

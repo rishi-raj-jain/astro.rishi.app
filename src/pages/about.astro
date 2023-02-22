@@ -1,8 +1,8 @@
 ---
 import { load } from 'cheerio'
 import Heart from '@/components/Heart.astro'
-import MainLayout from '@/layouts/MainLayout.astro'
-import { getTagline, getTimelineItems } from '../api'
+import Layout from '@/layouts/Layout.astro'
+import { getTagline, getTimelineItems } from '@/src/lib/api'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 let data = undefined
@@ -38,7 +38,7 @@ $('p').addClass('mt-2 font-light text-slate-600 dark:text-slate-400')
 aboutTaglineHTML = $('p').parent().html()
 ---
 
-<MainLayout valid={data} content={{ title: 'About Me - Rishi Raj Jain' }}>
+<Layout valid={data} content={{ title: 'About Me - Rishi Raj Jain' }}>
   <div class="flex w-full flex-col items-center text-[14px]">
     <div class="mt-10 flex w-[90vw] max-w-[540px] flex-col">
       <h1 class="text-3xl font-bold text-zinc-700 dark:text-gray-300">About Me</h1>
@@ -71,4 +71,4 @@ aboutTaglineHTML = $('p').parent().html()
       }
     </div>
   </div>
-</MainLayout>
+</Layout>

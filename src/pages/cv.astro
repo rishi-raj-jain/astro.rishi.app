@@ -1,9 +1,9 @@
 ---
-import { cv } from '../config'
-import MainLayout from '@/layouts/MainLayout.astro'
+import { cv } from '@/src/lib/config'
+import Layout from '@/layouts/Layout.astro'
 ---
 
-<MainLayout valid={cv} content={{ title: 'CV - Rishi Raj Jain' }}>
+<Layout valid={cv} content={{ title: 'CV - Rishi Raj Jain' }}>
   <div class="flex w-full flex-col items-center text-[14px]">
     <div class="mt-10 flex w-[90vw] max-w-[540px] flex-col">
       <h2 class="text-3xl font-bold text-zinc-700 dark:text-gray-300">Rishi Raj Jain</h2>
@@ -40,4 +40,4 @@ import MainLayout from '@/layouts/MainLayout.astro'
       ))
     }
   </div>
-</MainLayout>
+</Layout>
