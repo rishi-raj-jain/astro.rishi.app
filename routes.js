@@ -43,7 +43,7 @@ router.prerender(async () => {
 
 // Route requests requesting showcase assets to showcase prefix
 router.match('/showcase/:path*.:ext(js|mjs|css|png|ico|svg|jpg|jpeg|gif|ttf|woff|otf)', ({ serveStatic }) => {
-  serveStatic(isProductionBuild() ? 'dist/client/showcase/:path*.:ext' : 'public/showcase/:path*.:ext')
+  serveStatic('dist/client/showcase/:path*.:ext')
 })
 
 // Disable cross origin fetch of /api route
