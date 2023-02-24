@@ -42,7 +42,7 @@ router.prerender(async () => {
 })
 
 // Route requests requesting showcase assets to showcase prefix
-router.match('/showcase/:path*.:ext(js|mjs|css|png|ico|svg|jpg|jpeg|gif|ttf|woff|otf)', ({ serveStatic }) => {
+router.match('/showcase/:path*.:ext(js|mjs|css|png|ico|svg|jpg|jpeg|gif|ttf|woff|otf|mp4)', ({ serveStatic }) => {
   serveStatic('dist/client/showcase/:path*.:ext')
 })
 
