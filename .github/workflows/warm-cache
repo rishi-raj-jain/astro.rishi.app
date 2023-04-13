@@ -2,7 +2,6 @@ name: Trigger Cache on a CRON Schedule
 
 on:
   schedule:
-    # Runs "at minute 55 past every hour"
     - cron: '0 0 * * *'
 jobs:
   build:
