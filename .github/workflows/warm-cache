@@ -1,0 +1,20 @@
+name: Trigger Cache on a CRON Schedule
+
+on:
+  schedule:
+    # Runs "at minute 55 past every hour"
+    - cron: '0 0 * * *'
+jobs:
+  build:
+    name: Populate Cache Per Day
+    runs-on: ubuntu-latest
+    steps:
+      - name: cURL request
+        run: curl https://rishi.app
+        run: curl https://rishi.app/about
+        run: curl https://rishi.app/blogs
+        run: curl https://rishi.app/cv
+        run: curl https://rishi.app/storyblok
+        run: curl https://rishi.app
+        run: curl https://rishi.app/blog/using-firebase-admin-with-next-js
+        run: curl https://rishi.app/blog/using-firebase-admin-with-sveltekit
