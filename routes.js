@@ -1,7 +1,3 @@
-// This file was automatically added by edgio init.
-// You should commit this file to source control.
-
-import { astroRoutes } from '@edgio/astro'
 import { CustomCacheKey, Router } from '@edgio/core'
 import { isProductionBuild } from '@edgio/core/environment'
 
@@ -27,8 +23,11 @@ if (isProductionBuild()) {
       })
     })
   })
+  router.static('dist/client')
 }
 
-router.use(astroRoutes)
+router.fallback(({ renderWithApp }) => {
+  renderWithApp()
+})
 
 export default router

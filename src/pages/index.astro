@@ -1,7 +1,9 @@
 ---
 import { getTagline } from '@/src/lib/api'
 import Layout from '@/layouts/Layout.astro'
+import { Image } from '@astrojs/image/components'
 import SocialLinks from '@/components/SocialLinks.astro'
+import hero from '../../public/static/favicon-image.jpg'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 let data = undefined
@@ -16,8 +18,15 @@ const aboutLine = new RichTextResolver().render(data)
 ---
 
 <Layout className="overflow-hidden" valid={data} content={{ title: 'Home - Rishi Raj Jain' }}>
-  <div class="md:justify-auto flex min-h-[90vh] flex-col justify-center md:flex-row md:items-center">
-    <div class="order-2 md:order-1 flex w-full flex-col items-center justify-center md:w-1/2 md:items-start">
+  <div class="w-full min-h-[90vh] flex flex-col md:flex-row items-center md:justify-between">
+    <!-- @ts-ignore -->
+    <Image
+      src={hero}
+      aspectRatio={3 / 4}
+      alt="Rishi Raj Jain in his favourite attire"
+      class="rounded object-contain transform-gpu max-w-max h-[250px] md:h-[500px]"
+    />
+    <div class="flex w-full flex-col items-center justify-center md:w-1/2 md:items-start">
       <h1 class="mt-5 text-2xl font-bold sm:text-5xl md:mt-0">Rishi Raj Jain</h1>
       <h2 class="mt-5 text-center text-lg text-gray-500 dark:text-white sm:text-xl md:text-left">Technical Customer Success Manager at Edgio</h2>
       <div class="flex flex-row space-x-5">
@@ -25,18 +34,6 @@ const aboutLine = new RichTextResolver().render(data)
       </div>
       <div class="mt-10 h-[1px] w-full bg-gray-200 dark:bg-gray-700"></div>
       <h2 set:html={aboutLine} class="text-md mt-10 text-center text-gray-500 dark:text-white sm:text-lg md:text-left" />
-    </div>
-    <div class="order-1 md:order-2 flex flex-col items-center justify-center md:flex md:w-1/2">
-      <div class="grayscale filter">
-        <img
-          fetchpriority="high"
-          alt="Rishi Raj Jain"
-          sizes="(max-width: 768px) 110px, 330px"
-          class="rounded object-cover aspect-square transform-gpu"
-          src="https://opt.moovweb.net?img=https://rishi.app/static/favicon-image.jpg"
-          srcset="https://opt.moovweb.net?img=https://rishi.app/static/favicon-image.jpg&width=110 110w, https://opt.moovweb.net?img=https://rishi.app/static/favicon-image.jpg&width=330 330w"
-        />
-      </div>
     </div>
   </div>
 </Layout>

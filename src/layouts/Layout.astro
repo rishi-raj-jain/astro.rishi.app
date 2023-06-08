@@ -96,40 +96,6 @@ const linkOnload = loadDarkOnPriority ? '' : "this.media='all'"
         }
         themeChangeListener()
       }
-      if ('serviceWorker' in navigator) {
-        fetch('/version.json')
-          .then((res) => res.json())
-          .then((res) => {
-            if (res && res.version) {
-              localStorage.setItem('received-sw-version', res.version)
-              console.log('going to register.')
-              navigator.serviceWorker.register('/service-worker.js').then(
-                (registration) => {
-                  console.log('Service worker registration succeeded:', registration)
-                  const swVersion = localStorage.getItem('sw-version')
-                  if (swVersion) {
-                    if (swVersion !== res.version) {
-                      console.log('Update registeration')
-                      self.caches.delete('prefetch').then(() => {
-                        registration.update().then(() => {
-                          // Update the version if updated locally
-                          localStorage.setItem('sw-version', res.version)
-                        })
-                      })
-                    }
-                  } else {
-                    localStorage.setItem('sw-version', res.version)
-                  }
-                },
-                (error) => {
-                  console.error(`Service worker registration failed: ${error}`)
-                }
-              )
-            }
-          })
-      } else {
-        console.error('Service workers are not supported.')
-      }
     </script>
     <link media={linkMedia} rel="stylesheet" href="/css/dark.css" onload={linkOnload} />
     {showGA && <GA CONFIG_ID={'G-C9HDQHK5SE'} />}
