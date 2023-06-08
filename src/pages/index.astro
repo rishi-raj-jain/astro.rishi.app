@@ -1,11 +1,11 @@
 ---
+import { join } from 'path'
 import { getImage } from '@astrojs/image'
 import { getTagline } from '@/src/lib/api'
 import Layout from '@/layouts/Layout.astro'
 import Socials from '@/components/Socials.astro'
 import { Image } from '@astrojs/image/components'
 import { getBase64ImageUrl } from '@/src/lib/image'
-import hero from '../../public/static/favicon-image.jpg'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 let data = undefined
@@ -16,10 +16,16 @@ try {
   console.log(e)
 }
 
-const blurImageDataURL = await getBase64ImageUrl('./public/static/favicon-image.jpg')
+const imagePath = join(process.cwd(), 'public', 'static', 'favicon-image')
+const imageBufferPromise = import(`${imagePath}.jpg`)
+const imageBuffer = await imageBufferPromise
+const imageAlt = 'Rishi Raj Jain in his favourite attire'
+
+const blurImageDataURL = await getBase64ImageUrl(`${imagePath}.jpg`)
 
 const { width, height } = await getImage({
-  src: import('../../public/static/favicon-image.jpg'),
+  alt: imageAlt,
+  src: imageBufferPromise,
 })
 
 const aboutLine = new RichTextResolver().render(data)
@@ -29,11 +35,11 @@ const aboutLine = new RichTextResolver().render(data)
   <div class="w-full min-h-[90vh] flex flex-col md:flex-row items-center md:justify-between">
     <!-- @ts-ignore -->
     <Image
-      src={hero}
       width={width}
+      alt={imageAlt}
       height={height}
+      src={imageBuffer}
       aspectRatio={width / height}
-      alt="Rishi Raj Jain in his favourite attire"
       class="rounded object-contain transform-gpu max-w-max h-[250px] md:h-[500px]"
       style={`background-image:url(${blurImageDataURL});background-repeat:no-repeat;background-position:50% 50%;background-size:cover`}
     />
