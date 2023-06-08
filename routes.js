@@ -26,6 +26,14 @@ if (isProductionBuild()) {
   router.static('dist/client')
 }
 
+router.match('/_image', ({ cache }) => {
+  cache({
+    edge: {
+      maxAgeSeconds: 60 * 60 * 24 * 365,
+    },
+  })
+})
+
 router.fallback(({ renderWithApp }) => {
   renderWithApp()
 })
