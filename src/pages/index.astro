@@ -1,8 +1,10 @@
 ---
+import { getImage } from '@astrojs/image'
 import { getTagline } from '@/src/lib/api'
 import Layout from '@/layouts/Layout.astro'
+import Socials from '@/components/Socials.astro'
 import { Image } from '@astrojs/image/components'
-import SocialLinks from '@/components/SocialLinks.astro'
+import { getBase64ImageUrl } from '@/src/lib/image'
 import hero from '../../public/static/favicon-image.jpg'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
@@ -14,6 +16,12 @@ try {
   console.log(e)
 }
 
+const blurImageDataURL = await getBase64ImageUrl('./public/static/favicon-image.jpg')
+
+const { width, height } = await getImage({
+  src: import('../../public/static/favicon-image.jpg'),
+})
+
 const aboutLine = new RichTextResolver().render(data)
 ---
 
@@ -22,16 +30,17 @@ const aboutLine = new RichTextResolver().render(data)
     <!-- @ts-ignore -->
     <Image
       src={hero}
-      aspectRatio={3 / 4}
+      width={width}
+      height={height}
+      aspectRatio={width / height}
       alt="Rishi Raj Jain in his favourite attire"
       class="rounded object-contain transform-gpu max-w-max h-[250px] md:h-[500px]"
+      style={`background-image:url(${blurImageDataURL});background-repeat:no-repeat;background-position:50% 50%;background-size:cover`}
     />
     <div class="flex w-full flex-col items-center justify-center md:w-1/2 md:items-start">
       <h1 class="mt-5 text-2xl font-bold sm:text-5xl md:mt-0">Rishi Raj Jain</h1>
       <h2 class="mt-5 text-center text-lg text-gray-500 dark:text-white sm:text-xl md:text-left">Technical Customer Success Manager at Edgio</h2>
-      <div class="flex flex-row space-x-5">
-        <SocialLinks />
-      </div>
+      <Socials />
       <div class="mt-10 h-[1px] w-full bg-gray-200 dark:bg-gray-700"></div>
       <h2 set:html={aboutLine} class="text-md mt-10 text-center text-gray-500 dark:text-white sm:text-lg md:text-left" />
     </div>
