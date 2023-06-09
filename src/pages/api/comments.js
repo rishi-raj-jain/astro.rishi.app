@@ -9,7 +9,7 @@ export async function get({ request }) {
         status: 534,
         statusText: 'Not found',
       })
-    const commentsRef = firebase.collection('comments')
+    const commentsRef = firestore.collection('comments')
     const comments = await commentsRef.get()
     const posts = comments.docs
       .map((doc) => doc.data())
@@ -35,7 +35,7 @@ export async function post({ request }) {
     let temp = { name, slug, content }
     temp['time'] = firestore.Timestamp.fromDate(new Date())
     if (validateEmail(email)) temp['email'] = email
-    const commentsRef = firebase.collection('comments')
+    const commentsRef = firestore.collection('comments')
     await commentsRef.add(temp)
     return new Response(null, {
       status: 200,
