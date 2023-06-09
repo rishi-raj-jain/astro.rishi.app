@@ -5,7 +5,7 @@ export const SITE_DESCRIPTION = 'Currently, I am working as a Technical Customer
 export const SOCIAL_MEDIA_LINKS = {
   polywork: 'https://polywork.rishi.app',
   github: 'https://github.com/rishi-raj-jain',
-  medium: 'https://rishi-raj-jain.medium.com/',
+  medium: 'https://medium.com/@rishi-raj-jain',
   behance: 'https://behance.net/rishi-raj-jain',
   twitter: 'https://twitter.com/rishi_raj_jain_',
   peerlist: 'https://peerlist.io/rishi_raj_jain_',
