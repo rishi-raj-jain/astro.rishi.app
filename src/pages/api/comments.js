@@ -4,11 +4,12 @@ import { validateEmail } from '@/src/lib/operations'
 export async function get({ request }) {
   try {
     const slug = new URL(request.url).searchParams.get('slug')
-    if (!slug)
+    if (!slug) {
       return new Response(null, {
         status: 534,
         statusText: 'Not found',
       })
+    }
     const firebase = admin.firestore()
     const commentsRef = firebase.collection('comments')
     const comments = await commentsRef.get()
@@ -36,7 +37,9 @@ export async function post({ request }) {
     const { name, slug, content, email } = await request.json()
     let temp = { name, slug, content }
     temp['time'] = admin.firestore.Timestamp.fromDate(new Date())
-    if (validateEmail(email)) temp['email'] = email
+    if (validateEmail(email)) {
+      temp['email'] = email
+    }
     const commentsRef = firebase.collection('comments')
     await commentsRef.add(temp)
     return new Response(null, {
