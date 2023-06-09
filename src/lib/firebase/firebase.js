@@ -1,8 +1,10 @@
+import admin from 'firebase-admin'
 import { fireConfig } from './firebaseConfig'
-import { initializeApp } from 'firebase-admin/app'
-import { getFirestore } from 'firebase-admin/firestore'
 
-const app = initializeApp(fireConfig)
-const db = getFirestore(app)
+try {
+  admin.initializeApp({
+    credential: admin.credential.cert(fireConfig),
+  })
+} catch (e) {}
 
-export default db
+export default admin
