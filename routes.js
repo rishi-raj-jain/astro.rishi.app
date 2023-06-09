@@ -5,7 +5,6 @@ const paths = ['/', '/cv', '/blogs', '/storyblok', '/about', '/blog/:path', '/sh
 
 const router = new Router()
 
-// Disable cross origin fetch of /api route
 router.match('/api/:path*', ({ setResponseHeader }) => {
   setResponseHeader('Access-Control-Allow-Origin', 'https://rishi.app')
 })
