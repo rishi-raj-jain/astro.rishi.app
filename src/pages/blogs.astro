@@ -21,10 +21,8 @@ try {
   <div class="flex flex-col">
     <h1 class="text-2xl font-bold sm:text-5xl">Blogs</h1>
     <h2
+      class="font-regular text-md mt-5 whitespace-pre-line dark:text-gray-400 sm:text-xl"
       set:html={data.blogsTagline ? new RichTextResolver().render(data.blogsTagline) : 'placeholder tagline'}
-      class={`font-regular text-md mt-5 whitespace-pre-line dark:text-gray-400 sm:text-xl ${
-        data.blogsTagline ? '' : 'bg-black dark:bg-gray-400 animate-pulse'
-      }`}
     />
     {
       data.allPosts[0] != 0 && (
@@ -35,45 +33,16 @@ try {
     }
     <div class="flex flex-row flex-wrap">
       <div class="mt-10 flex w-full flex-col items-center lg:mt-20 lg:w-2/3 lg:pr-10">
-        <div class="relative space-y-8 columns-1 sm:columns-2">
+        <div class="relative space-y-8 columns-1">
           {
             data.allPosts.map((item, _) => (
-              <a
-                href={item && item.slug ? `/blog/${item.slug}` : ''}
-                class="flex break-inside-avoid flex-col rounded border border-t-0 dark:border-gray-700"
-              >
-                {item?.content?.image && (
-                  <img
-                    src={item.content.image}
-                    loading={_ === 0 ? 'eager' : 'lazy'}
-                    class="mb-5 h-auto w-full rounded border shadow grayscale hover:grayscale-0"
-                  />
-                )}
-                <span
-                  id={`first_published_at_${_}`}
-                  class={`px-4 text-gray-700 dark:text-gray-400 ${
-                    item && item.first_published_at ? '' : 'w-[250px] animate-pulse bg-gray-700 dark:bg-gray-400'
-                  } ${item?.content?.image ? '' : 'mt-5'}`}
-                >
-                  {item && item.first_published_at ? <DateString date={new Date(item.first_published_at)} /> : 'placeholder date'}
-                </span>
-                <span class={`text-md mt-3 px-4 font-bold hover:underline ${item && item.slug ? '' : 'animate-pulse bg-black'}`}>
-                  {item && item.content ? item.content.title : 'placeholder title'}
-                </span>
-                <span
-                  class={`line-clamp-2 mt-3 px-4 text-xs text-gray-700 dark:text-gray-400 ${
-                    item && item.content ? '' : 'w-[200px] animate-pulse bg-gray-700 dark:bg-gray-400'
-                  }`}
-                >
-                  {item && item.content ? item.content.intro : 'placeholder intro'}
-                </span>
-                <span
-                  class={`mb-5 mt-5 px-4 text-sm uppercase text-blue-500 hover:underline ${
-                    item && item.slug ? '' : 'w-[100px] animate-pulse bg-blue-500'
-                  }`}
-                >
-                  Read More &rarr;
-                </span>
+              <a href={`/blog/${item.slug}`} class="flex flex-col border-b border-gray-200 dark:border-gray-800">
+                <div class="flex break-inside-avoid flex-col">
+                  <DateString className="text-sm text-gray-800 dark:text-gray-400" date={new Date(item.first_published_at)} />
+                  <span class="mt-1 text-xl font-semibold hover:underline">{item.content.title}</span>
+                  <span class="mt-3 line-clamp-2 text-sm text-gray-700 dark:text-gray-400">{item.content.intro}</span>
+                  <span class="mb-5 mt-5 text-sm uppercase text-blue-500 hover:underline">Read More &rarr;</span>
+                </div>
               </a>
             ))
           }
@@ -86,12 +55,10 @@ try {
             <a
               rel="noopener"
               target="_blank"
-              href={item && item.content ? item.content.Url.url : ''}
-              class={`mt-5 truncate border-b pb-2 text-sm text-gray-500 hover:underline dark:border-gray-700 dark:text-gray-400 ${
-                item && item.content ? '' : 'animate-pulse bg-gray-500 dark:bg-gray-400'
-              }`}
+              href={item.content.Url.url}
+              class="mt-5 truncate border-b pb-2 text-sm text-gray-500 hover:underline dark:border-gray-700 dark:text-gray-400"
             >
-              {item && item.content ? item.content.Title : 'placeholder title'}
+              {item.content.Title}
             </a>
           ))
         }
@@ -99,11 +66,3 @@ try {
     </div>
   </div>
 </Layout>
-
-<script is:inline defer>
-  setTimeout(() => {
-    if (document.querySelector('#first_published_at_0').classList.contains('animate-pulse')) {
-      window.location = '/404'
-    }
-  }, 2000)
-</script>
