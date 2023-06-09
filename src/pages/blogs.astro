@@ -1,8 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import SearchBar from '@/components/SearchBar'
+import { renderRichText } from '@storyblok/astro'
 import DateString from '@/components/DateString.astro'
-import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 import { getAllPostsForHome, getRecommendedPosts, getTagline } from '@/src/lib/api'
 
 let data = undefined
@@ -22,7 +22,7 @@ try {
     <h1 class="text-2xl font-bold sm:text-5xl">Blogs</h1>
     <h2
       class="font-regular text-md mt-5 whitespace-pre-line dark:text-gray-400 sm:text-xl"
-      set:html={data.blogsTagline ? new RichTextResolver().render(data.blogsTagline) : 'placeholder tagline'}
+      set:html={data.blogsTagline ? renderRichText(data.blogsTagline) : 'placeholder tagline'}
     />
     {
       data.allPosts[0] != 0 && (

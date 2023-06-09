@@ -4,9 +4,9 @@ import { getTagline } from '@/src/lib/api'
 import Layout from '@/layouts/Layout.astro'
 import Socials from '@/components/Socials.astro'
 import { Image } from '@astrojs/image/components'
+import { renderRichText } from '@storyblok/astro'
 import { getBase64ImageUrl } from '@/src/lib/image'
 import hero from '../../public/static/favicon-image.jpg'
-import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 let data = undefined
 
@@ -16,12 +16,12 @@ try {
   console.log(e)
 }
 
+const aboutLine = renderRichText(data)
+
 const imagePath = join(process.cwd(), 'public', 'static', 'favicon-image.jpg')
 const imageAlt = 'Rishi Raj Jain in his favourite attire'
 
 const blurImageDataURL = await getBase64ImageUrl(imagePath)
-
-const aboutLine = new RichTextResolver().render(data)
 ---
 
 <Layout className="overflow-hidden" valid={data} content={{ title: 'Home - Rishi Raj Jain' }}>
