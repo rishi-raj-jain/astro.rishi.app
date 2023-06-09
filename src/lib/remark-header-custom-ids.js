@@ -27,9 +27,6 @@ const imageAttrs = (node, index, parent) => {
 const headingAttrs = (node, index, parent, maintainCase) => {
   let id = slugs.slug(toString(node), maintainCase)
   const data = commonPatch(node)
-  // if (parent) {
-  //   console.log(parent.children[index])
-  // }
   patch(data, 'id', id)
   patch(data.htmlAttributes, 'id', id)
   patch(data.hProperties, 'id', id)
