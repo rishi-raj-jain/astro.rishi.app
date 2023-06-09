@@ -1,11 +1,11 @@
 ---
 import { join } from 'path'
-import { getImage } from '@astrojs/image'
 import { getTagline } from '@/src/lib/api'
 import Layout from '@/layouts/Layout.astro'
 import Socials from '@/components/Socials.astro'
 import { Image } from '@astrojs/image/components'
 import { getBase64ImageUrl } from '@/src/lib/image'
+import hero from '../../public/static/favicon-image.jpg'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 let data = undefined
@@ -16,32 +16,24 @@ try {
   console.log(e)
 }
 
-const imagePath = join(process.cwd(), 'public', 'static', 'favicon-image')
-const imageBufferPromise = import(`${imagePath}.jpg`)
-const imageBuffer = await imageBufferPromise
+const imagePath = join(process.cwd(), 'public', 'static', 'favicon-image.jpg')
 const imageAlt = 'Rishi Raj Jain in his favourite attire'
 
-const blurImageDataURL = await getBase64ImageUrl(`${imagePath}.jpg`)
-
-const { width, height } = await getImage({
-  alt: imageAlt,
-  src: imageBufferPromise,
-})
+const blurImageDataURL = await getBase64ImageUrl(imagePath)
 
 const aboutLine = new RichTextResolver().render(data)
 ---
 
 <Layout className="overflow-hidden" valid={data} content={{ title: 'Home - Rishi Raj Jain' }}>
   <div class="w-full min-h-[90vh] flex flex-col md:flex-row items-center md:justify-between">
-    <!-- @ts-ignore -->
     <Image
-      width={width}
+      src={hero}
       alt={imageAlt}
-      height={height}
-      src={imageBuffer}
-      aspectRatio={width / height}
+      width={blurImageDataURL.width}
+      height={blurImageDataURL.height}
+      aspectRatio={blurImageDataURL.width / blurImageDataURL.height}
       class="rounded object-contain transform-gpu max-w-max h-[250px] md:h-[500px]"
-      style={`background-image:url(${blurImageDataURL});background-repeat:no-repeat;background-position:50% 50%;background-size:cover`}
+      style={`background-image:url(${blurImageDataURL.data});background-repeat:no-repeat;background-position:50% 50%;background-size:cover`}
     />
     <div class="flex w-full flex-col items-center justify-center md:w-1/2 md:items-start">
       <h1 class="mt-5 text-2xl font-bold sm:text-5xl md:mt-0">Rishi Raj Jain</h1>
