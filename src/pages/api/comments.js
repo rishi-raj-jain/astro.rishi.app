@@ -1,4 +1,4 @@
-import admin from '@/src/lib/firebase/firebase'
+import firestore from '@/src/lib/firebase/firebase'
 import { validateEmail } from '@/src/lib/operations'
 
 export async function get({ request }) {
@@ -9,7 +9,6 @@ export async function get({ request }) {
         status: 534,
         statusText: 'Not found',
       })
-    const firebase = admin.firestore()
     const commentsRef = firebase.collection('comments')
     const comments = await commentsRef.get()
     const posts = comments.docs
@@ -32,10 +31,9 @@ export async function get({ request }) {
 
 export async function post({ request }) {
   try {
-    const firebase = admin.firestore()
     const { name, slug, content, email } = await request.json()
     let temp = { name, slug, content }
-    temp['time'] = admin.firestore.Timestamp.fromDate(new Date())
+    temp['time'] = firestore.Timestamp.fromDate(new Date())
     if (validateEmail(email)) temp['email'] = email
     const commentsRef = firebase.collection('comments')
     await commentsRef.add(temp)
